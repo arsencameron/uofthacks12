@@ -1,20 +1,20 @@
-import React from 'react';
-import SearchBar from '../components/searchbar';
-import GoogleMap from '../components/GoogleMap';
+import React, { useState } from 'react';
+import LeftSection from '../components/LeftSection';
+import RightSection from '../components/RightSection';
+import './Home.css';
 
 function Home() {
+  const [activeTab, setActiveTab] = useState('search');
+
   const handleSearch = (searchTerm) => {
     console.log('Search Term:', searchTerm);
     // Add your search logic here
   };
 
   return (
-    <div className="App">
-      <header className="App-header">
-        Find your location
-      </header>
-      <SearchBar onSearch={handleSearch} />
-      <GoogleMap />
+    <div className="home-container">
+      <LeftSection activeTab={activeTab} setActiveTab={setActiveTab} handleSearch={handleSearch} />
+      <RightSection />
     </div>
   );
 }

@@ -2,15 +2,15 @@
     display: flex;
     justify-content: left;
     align-items: center;
-    margin-left: 100px;
-    margin-top: 80px;
+    margin-top: 20px;
+    margin-left: 8px;
   }
   
   .search-bar input {
     padding: 10px;
     font-size: 16px;
     border: 1px solid #ccc;
-    border-radius: 4px;
+    border-radius: 20px; /* Make the input rounded */
     width: 500px; /* Adjust width as needed */
   }
   
@@ -18,7 +18,7 @@
     padding: 10px 20px;
     font-size: 16px;
     border: none;
-    border-radius: 4px;
+    border-radius: 20px; /* Make the button rounded */
     background-color: #00698F;
     color: white;
     cursor: pointer;

@@ -1,0 +1,52 @@
+.left-section {
+    flex: 3; /* 75% of the page */
+    background: #E2E2E2; /* Gray background */
+    padding: 20px;
+  }
+  
+  .tabs {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+  }
+  
+  .tab {
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 20px;
+    background-color: #ccc;
+    color: white;
+    cursor: pointer;
+    margin: 0 10px;
+  }
+  
+  .tab.active {
+    background-color: #00698F;
+  }
+  
+  .tab:hover {
+    background-color: #005577;
+  }
+
+  .google-map-container {
+    display: flex;
+    justify-content: left;
+    align-items: flex-start;
+    margin-top: 20px;
+    margin-left: 10px;
+  }
+  
+  .map-wrapper {
+    flex: 1;
+  }
+  
+  .location-info {
+    margin-left: 20px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    width: 300px; /* Adjust width as needed */
+  }
