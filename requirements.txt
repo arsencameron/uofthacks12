@@ -47,3 +47,5 @@ urllib3 @ file:///private/var/folders/nz/j6p8yfhx1mv_0grj5xl4650h0000gp/T/abs_ca
 uvicorn==0.34.0
 wheel==0.43.0
 zstandard @ file:///private/var/folders/k1/30mswbxs7r1g6zwn8y4fyt500000gp/T/abs_054juzz3it/croot/zstandard_1714677666952/work
+python-dotenv
+psycopg2

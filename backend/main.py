@@ -1,27 +1,40 @@
-from fastapi import FastAPI, HTTPException
-from models import Review
-from motor.motor_asyncio import AsyncIOMotorClient
+import psycopg2
+from dotenv import load_dotenv
+import os
 
-MONGO_URI = "mongodb+srv://uofthacks:babi@cluster0.mongodb.net/location_table?retryWrites=true&w=majority"
-client = AsyncIOMotorClient(MONGO_URI)
-db = client["accessibility_app"]
-reviews_collection = db["reviews"]
-app = FastAPI()
+# Load environment variables from .env
+load_dotenv()
 
-@app.get("/")
-async def root():
-    return {"message": "Home Page"}
+# Fetch variables
+USER = os.getenv("user")
+PASSWORD = os.getenv("password")
+HOST = os.getenv("host")
+PORT = os.getenv("port")
+DBNAME = os.getenv("dbname")
 
-@app.get("/reviews")
-async def add_review(review: Review):
-    location = await db["locations"].find_one({"_id": review.location_id})
-    if not location:
-        raise HTTPException(status_code=404, detail="Location not found")
+# Connect to the database
+try:
+    connection = psycopg2.connect(
+        user=USER,
+        password=PASSWORD,
+        host=HOST,
+        port=PORT,
+        dbname=DBNAME
+    )
+    print("Connection successful!")
+    
+    # Create a cursor to execute SQL queries
+    cursor = connection.cursor()
+    
+    # Example query
+    cursor.execute("SELECT NOW();")
+    result = cursor.fetchone()
+    print("Current Time:", result)
 
-    # Insert review into MongoDB
-    review_dict = review.model_dump()
-    review_dict["_id"] = str(await reviews_collection.count_documents({}) + 1)  # Generate unique ID
-    await reviews_collection.insert_one(review_dict)
+    # Close the cursor and connection
+    cursor.close()
+    connection.close()
+    print("Connection closed.")
 
-    return {"message": "Review added successfully", "review_id": review_dict["_id"]}
-
+except Exception as e:
+    print(f"Failed to connect: {e}")
