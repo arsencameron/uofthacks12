@@ -30,11 +30,6 @@ function Review() {
     );
   };
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    console.log('Review submitted:', { title, description, name, date, ratings });
-  };
-
   const handleRatingChange = (category, value) => {
     setRatings(prevRatings => ({
       ...prevRatings,
@@ -42,53 +37,92 @@ function Review() {
     }));
   };
 
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+
+    const reviewData = {
+      text: description,
+      location_id: "4778def0-76ec-4c5c-8657-91e5b7659ba7", // Replace with actual location ID
+      user_id: "user-id-placeholder", // Replace with actual user ID
+      accessibility_ratings: ratings,
+    };
+
+    try {
+      const response = await fetch('http://127.0.0.1:5000/reviews', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(reviewData),
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const data = await response.json();
+      alert(`Review added successfully! Review ID: ${data.review_id}`);
+    } catch (error) {
+      console.error('Error submitting review:', error);
+      alert('Failed to submit the review. Please try again.');
+    }
+  };
 
 
   return (
 <div>
-  <div className="ratings">
+<form onSubmit={handleSubmit}>
+    <div className="form-group">
+      <label htmlFor="title">Title:</label>
+      <input
+        type="text"
+        id="title"
+        value={title}
+        onChange={(e) => setTitle(e.target.value)}
+      />
+    </div>
+    <div className="form-group">
+      <label htmlFor="description">Description:</label>
+      <textarea
+        id="description"
+        value={description}
+        onChange={(e) => setDescription(e.target.value)}
+      ></textarea>
+    </div>
+    <div className="form-group">
+      <label htmlFor="name">Name:</label>
+      <input
+        type="text"
+        id="name"
+        value={name}
+        onChange={(e) => setName(e.target.value)}
+      />
+    </div>
+    <div className="form-group">
+      <label htmlFor="date">Date:</label>
+      <input
+        type="date"
+        id="date"
+        value={date}
+        onChange={(e) => setDate(e.target.value)}
+      />
+    </div>
     {['visual', 'auditory', 'cognitive', 'physical'].map((category) => (
-      <div className="rating" key={category}>
-        <span className="rating-label">{category.charAt(0).toUpperCase() + category.slice(1)}:</span>
-        <StarRating
-          category={category}
-          rating={ratings[category]}
-          onRatingChange={handleRatingChange}
-        />
+      <div key={category} className="form-group">
+        <label>{category.charAt(0).toUpperCase() + category.slice(1)}:</label>
+        {[1, 2, 3, 4, 5].map((star) => (
+          <span
+            key={star}
+            className={`star ${ratings[category] >= star ? 'active' : ''}`}
+            onClick={() => handleRatingChange(category, star)}
+          >
+            {ratings[category] >= star ? '★' : '☆'}
+          </span>
+        ))}
       </div>
     ))}
-  </div>
-  <div className="review-right">
-    <form onSubmit={handleSubmit}>
-      <div className="form-group">
-        <label htmlFor="title">Title for Review:</label>
-        <input
-          type="text"
-          id="title"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
-        />
-      </div>
-      <div className="form-group">
-        <label htmlFor="description">Description:</label>
-        <textarea
-          id="description"
-          value={description}
-          onChange={(e) => setDescription(e.target.value)}
-        ></textarea>
-      </div>
-      <div className="form-group">
-        <label htmlFor="name">Name:</label>
-        <input
-          type="text"
-          id="name"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-        />
-      </div>
-      <button type="submit">Submit Review</button>
-    </form>
-  </div>
+    <button type="submit">Submit Review</button>
+  </form>
 </div>
   );
 }

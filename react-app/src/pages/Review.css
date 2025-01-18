@@ -65,6 +65,9 @@
   button:hover {
     background-color: #005577;
   }
+  .form-group{
+    padding-top: 5%
+  }
   .ratings {
     padding-top: 5%;
   }

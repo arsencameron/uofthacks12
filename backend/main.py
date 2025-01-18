@@ -2,6 +2,7 @@ import psycopg2
 from dotenv import load_dotenv
 import os
 from flask import Flask, jsonify, request, abort
+from flask_cors import CORS
 from psycopg2.extras import RealDictCursor
 import json
 from datetime import datetime
@@ -46,7 +47,7 @@ except Exception as e:
     print(f"Failed to connect: {e}")
 
 app = Flask(__name__)
-
+CORS(app)  # Enable CORS for all routes
 
 def get_db_connection():
     """
