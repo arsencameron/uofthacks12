@@ -3,6 +3,8 @@ from databases import Database
 from models import Review, Location
 from datetime import datetime
 import httpx
+import os
+
 
 # Supabase PostgreSQL connection
 DATABASE_URL = "postgresql://<username>:<password>@<host>:<port>/<database>"
