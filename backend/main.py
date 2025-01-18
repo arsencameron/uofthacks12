@@ -5,6 +5,7 @@ from flask import Flask, jsonify, request, abort
 from psycopg2.extras import RealDictCursor
 import json
 from datetime import datetime
+from gemini import get_summary, get_embedding, get_sorted_locations
 
 # Load environment variables from .env
 load_dotenv()
@@ -22,7 +23,8 @@ try:
         password=PASSWORD,
         host=HOST,
         port=PORT,
-        dbname=DBNAME
+        dbname=DBNAME,
+        gssencmode = 'disable',
     )
     print("Connection successful!")
 
@@ -58,7 +60,7 @@ def get_db_connection():
             host=HOST,
             port=PORT,
             dbname=DBNAME,
-            sslmode='require'
+            gssencmode = 'disable',
         )
         return conn
     except Exception as e:
@@ -132,8 +134,28 @@ def add_review():
         if result:
             review_id = result['review_id']
             print(f"Review inserted successfully. review_id: {review_id}")
-            
-            # Update locations table
+            cursor.execute("""
+            SELECT r.*
+            FROM locations l
+            JOIN reviews r ON r.review_id = ANY(l.review_ids)
+            WHERE l.location_id = %s
+            ORDER BY r.timestamp DESC;
+            """, (review["location_id"],))
+            reviews = cursor.fetchall()
+            new_summary = get_summary(reviews)
+            new_embedding = get_embedding(new_summary)
+            # Add summary to current location
+            # Assuming `new_summary` and `new_embedding` are already computed
+            cursor.execute(
+                """
+                UPDATE locations
+                SET summary = %s, embedding = %s
+                WHERE location_id = %s
+                """,
+                (new_summary, new_embedding, review["location_id"])
+            )
+
+# Update locations table
             cursor.execute(
                     """
                     UPDATE locations 
@@ -159,6 +181,32 @@ def add_review():
     finally:
         cursor.close()
         conn.close()
+
+@app.route("/search", methods=["GET"])
+def search():
+    conn = get_db_connection()
+    if not conn:
+        abort(500, description="Database connection failed")
+    try:
+        cursor = conn.cursor(cursor_factory=RealDictCursor)
+        data = request.get_json()
+        if not data:
+            return jsonify({"error": "Invalid or missing JSON data"}), 400
+        user_prompt = data.get("prompt", "No prompt provided")
+        prompt_embedding = get_embedding(user_prompt)
+        cursor.execute("""
+            SELECT l.name, l.embedding
+            FROM locations l
+            """, )
+        summary_embeddings = cursor.fetchall()
+        return get_sorted_locations(prompt_embedding, summary_embeddings)
+    except Exception as e:
+        print(f"Error searching locations: {e}")
+        abort(500, description="Failed to search locations")
+    finally:
+        cursor.close()
+        conn.close()
+
 # @app.route("/")
 # def home():
 #     return jsonify({"message": "Welcome to the Flask API"})
