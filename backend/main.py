@@ -3,9 +3,11 @@ from databases import Database
 from models import Review, Location
 from datetime import datetime
 import httpx
+from dotenv import load_dotenv
+import os
 
 # Supabase PostgreSQL connection
-DATABASE_URL = "postgresql://<username>:<password>@<host>:<port>/<database>"
+DATABASE_URL = f"postgresql://{os.getenv("user")}:{os.getenv("password")}@{os.getenv("host")}:{os.getenv("port")}/{os.getenv("database")}"
 database = Database(DATABASE_URL)
 
 # Define lifespan event handlers
