@@ -1,18 +1,21 @@
+/* Import the Roboto font */
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
-
 
 html, body {
   height: 100%;
-  background: linear-gradient(to right, #2ebbf7, #00698F);
-  font-family: 'Roboto', sans-serif;
   margin: 0;
   padding: 0;
+  background: linear-gradient(to right, #2ebbf7, #00698F);
+  font-family: 'Roboto', sans-serif; /* Apply the Roboto font */
 }
 
 .App {
   text-align: left;
   height: 100vh; 
   position: relative; /* Ensure positioning context for absolute elements */
+  opacity: 0;
+  transition: opacity 4s ease-in-out;
+  opacity: 1;
 }
 
 .nav-logo {
@@ -42,8 +45,4 @@ nav ul li {
 .profile {
   width: 50px;
   height: 50px;
-}
-
-.App-link {
-  color: #61dafb;
 }
