@@ -303,31 +303,30 @@ def search():
 #         conn.close()
 #
 #
-# @app.route("/reviews/<review_id>", methods=["GET"])
-# def get_review(review_id):
-#     """
-#     Get details of a specific review by its ID.
-#     """
-#     conn = get_db_connection()
-#     if not conn:
-#         abort(500, description="Database connection failed")
-#
-#     try:
-#         cursor = conn.cursor(cursor_factory=RealDictCursor)
-#
-#         # Fetch the review details
-#         cursor.execute("SELECT * FROM reviews WHERE id = %s", (review_id,))
-#         review = cursor.fetchone()
-#         if not review:
-#             abort(404, description="Review not found")
-#
-#         return jsonify(review)
-#     except Exception as e:
-#         print(f"Error fetching review: {e}")
-#         abort(500, description="Failed to fetch review")
-#     finally:
-#         cursor.close()
-#         conn.close()
+@app.route("/reviews/<review_id>", methods=["GET"])
+def get_review(review_id):
+    """
+    Get details of a specific review by its ID.
+    """
+    conn = get_db_connection()
+    if not conn:
+        abort(500, description="Database connection failed")
+
+    try:
+        cursor = conn.cursor(cursor_factory=RealDictCursor)
+
+        # Fetch the review details
+        cursor.execute("SELECT * FROM reviews WHERE review_id = %s", (review_id,))
+        review = cursor.fetchone()
+        if not review:
+            abort(404, description="Review not found")
+        return jsonify(review)
+    except Exception as e:
+        print(f"Error fetching review: {e}")
+        abort(500, description="Failed to fetch review")
+    finally:
+        cursor.close()
+        conn.close()
 #
 #
 if __name__ == "__main__":
