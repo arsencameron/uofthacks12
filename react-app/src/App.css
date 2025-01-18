@@ -1,23 +1,32 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
+
+html, body {
+  height: 100%;
+  background: linear-gradient(to right, #2ebbf7, #00698F);
+  font-family: 'Roboto', sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
 .App {
   text-align: left;
-  background: linear-gradient(to right, #00B4F5, #00698F);
   height: 100vh; 
-  margin: 0; 
   position: relative; /* Ensure positioning context for absolute elements */
 }
 
 .nav-logo {
   position: absolute;
-  top: 10px;
-  left: 10px;
-  width: 100px;
+  top: -20px;
+  width: 300px;
   height: 100px;
 }
 
 .App-header {
-  margin-top: 120px; /* Add margin to push the header below the logo */
+  margin-top: 120px; 
   color: white;
   font-size: 100px;
+  margin-left: 100px;
 }
 
 nav ul {

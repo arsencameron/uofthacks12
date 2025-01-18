@@ -3,6 +3,8 @@
     "web-vitals": "^4.2.4"
   },
   "dependencies": {
+    "@react-google-maps/api": "^2.20.5",
+    "dotenv": "^16.4.7",
     "react-router-dom": "^7.1.3"
   }
 }
