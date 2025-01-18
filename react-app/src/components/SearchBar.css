@@ -1,5 +1,9 @@
 .search-bar {
-    margin-top: 150px;
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    margin-left: 100px;
+    margin-top: 80px;
   }
   
   .search-bar input {
@@ -7,7 +11,7 @@
     font-size: 16px;
     border: 1px solid #ccc;
     border-radius: 4px;
-    width: 1000px;
+    width: 500px; /* Adjust width as needed */
   }
   
   .search-bar button {
@@ -18,7 +22,7 @@
     background-color: #00698F;
     color: white;
     cursor: pointer;
-    margin-left: 1px;
+    margin-left: 10px; /* Add some space between the input and button */
   }
   
   .search-bar button:hover {
