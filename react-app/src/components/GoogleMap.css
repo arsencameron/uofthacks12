@@ -1,0 +1,7 @@
+.google-map {
+    margin-top: 20px;
+    margin-left: 20px; /* Add margin to the left */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }

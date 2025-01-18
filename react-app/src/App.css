@@ -1,17 +1,38 @@
 .App {
-  text-align: center;
+  text-align: left;
   background: linear-gradient(to right, #00B4F5, #00698F);
   height: 100vh; 
   margin: 0; 
+  position: relative; /* Ensure positioning context for absolute elements */
+}
+
+.nav-logo {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  width: 100px;
+  height: 100px;
 }
 
 .App-header {
-  position: absolute;
-  top: 0;
-  left: 0;
-  padding: 10px;
+  margin-top: 120px; /* Add margin to push the header below the logo */
   color: white;
   font-size: 100px;
+}
+
+nav ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+nav ul li {
+  display: inline;
+  margin: 0 10px;
+}
+
+.profile {
+  width: 50px;
+  height: 50px;
 }
 
 .App-link {
