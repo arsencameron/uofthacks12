@@ -31,11 +31,32 @@ try:
     result = cursor.fetchone()
     print("Current Time:", result)
 
-    # Close the cursor and connection
+    # Fetch all rows from the table
+    cursor.execute("SELECT * FROM locations")
+
+    # Get column names from cursor description
+    columns = [desc[0] for desc in cursor.description]
+    print("Location Columns:", columns)
+
+    # Fetch and print all rows
+    rows = cursor.fetchall()
+    for row in rows:
+        print(row)
+
+    cursor.execute("SELECT * FROM reviews")
+
+    # Get column names from cursor description
+    columns = [desc[0] for desc in cursor.description]
+    print("Review Columns:", columns)
+
+    # Fetch and print all rows
+    rows = cursor.fetchall()
+    for row in rows:
+        print(row)
+
+    # Close cursor and connection
     cursor.close()
     connection.close()
     print("Connection closed.")
-    
-
 except Exception as e:
     print(f"Failed to connect: {e}")
