@@ -24,7 +24,8 @@ function PromptBar({ onPrompt }) {
       }
 
       const sortedLocations = await response.json();
-      onPrompt(sortedLocations); // Pass data to parent
+      console.log(sortedLocations)
+      onPrompt(sortedLocations); // Pass sorted locations to Home
     } catch (error) {
       console.error("Error fetching sorted locations:", error);
     }

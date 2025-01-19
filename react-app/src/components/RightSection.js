@@ -40,7 +40,7 @@ const RightSection = ({ selectedPlace, handleWriteReviewClick }) => {
   if (showReview) {
     return (
       <section className="right-section">
-        <Review />
+        <Review selectedPlace={selectedPlace}/>
       </section>
     );
   }

@@ -11,6 +11,11 @@ function Home() {
     const [showReview, setShowReview] = useState(false);
     const [sortedLocations, setSortedLocations] = useState([]);
 
+    const fetchGooglePlaceDetails = (name) => {
+        handleSearch(name);
+    };
+
+
     const handleSearch = (searchTerm) => {
         if (!searchTerm) return;
 
@@ -104,7 +109,12 @@ function Home() {
                 setSelectedPlace={setSelectedPlace} // Pass map click handler
                 selectedPlace={selectedPlace}
             />
-            <RightSection sortedLocations={sortedLocations} selectedPlace={selectedPlace} /> {/* Pass selectedPlace */}
+            <RightSection
+                sortedLocations={sortedLocations}
+                selectedPlace={selectedPlace} // Pass selectedPlace
+                setSelectedPlace={setSelectedPlace} // Allow updates to selectedPlace
+                handleWriteReviewClick={handleWriteReviewClick}
+            />
             {/* {showReview ? (
                 <Review />
             ) : (

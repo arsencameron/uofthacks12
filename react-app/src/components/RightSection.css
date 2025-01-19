@@ -88,7 +88,9 @@ body {
   font-weight: normal;
   color: black;
 }
-
+.location-item{
+  width: 200px;
+}
 .write-review-button {
   font-size: 1.5rem; /* 24px */
   font-weight: bold;
@@ -185,4 +187,26 @@ body {
   border: none;
   cursor: pointer;
 
+}
+
+.location-list {
+  list-style-type: none;
+  padding: 0;
+}
+
+.location-item {
+  margin-bottom: 1rem;
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.location-item h3 {
+  margin: 0 0 0.5rem;
+}
+
+.location-item p {
+  margin: 0;
+  font-size: 0.9rem;
+  color: #555;
 }
