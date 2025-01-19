@@ -2,12 +2,15 @@
   width: 30%;
   background-color: white;
   padding: 20px;
-}np
+}
 
 .location-image {
-  width: 90%;
+  width: 100%; /* Ensure the image fits within its parent */
+  max-width: 400px; /* Set a more reasonable maximum width */
+  max-height: 200px; /* Set a more reasonable maximum height */
   border-radius: 10px;
   margin-bottom: 20px;
+  object-fit: cover; /* Ensure the image maintains its aspect ratio */
 }
 
 .location-info {
@@ -23,14 +26,14 @@
 
 .location-address {
   font-family: 'Inter', sans-serif;
-  font-size: 32px;
+  font-size: 20px;
   font-weight: normal;
   color: black;
 }
 
 .location-description {
   font-family: 'Inter', sans-serif;
-  font-size: 24px;
+  font-size: 20px;
   font-weight: normal;
   color: black;
 }
@@ -58,7 +61,7 @@
 
 .number-of-reviews {
   font-family: 'Inter', sans-serif;
-  font-size: 20px;
+  font-size: 15px;
   font-weight: normal;
   color: black;
 }
