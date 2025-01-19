@@ -1,37 +1,51 @@
+/* Normalize styles */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px; /* Base font size */
+}
+
+body {
+  font-family: 'Nunito', sans-serif;
+  line-height: 1.6;
+  background-color: #f8f9fa;
+  color: #333;
+  margin: 0;
+  padding: 0;
+}
+
 .right-section {
-    width: 30%;
-    background: #ffffff;
-    padding: 20px;
-    box-sizing: border-box;
-    overflow: scroll;
+  width: 30%;
+  background: #ffffff;
+  padding: 20px;
+  box-sizing: border-box;
+  overflow: auto; /* Use auto instead of scroll */
 }
 
 .right-section .location-image {
-    width: 100%;
-    height: auto;
-    margin-bottom: 15px;
-    border-radius: 10px;
+  width: 100%;
+  height: auto;
+  margin-bottom: 15px;
+  border-radius: 10px;
+  object-fit: cover; /* Ensure the image maintains its aspect ratio */
 }
 
 .right-section .location-info h1,
 .right-section .location-info h2 {
-    margin: 5px 0;
+  margin: 5px 0;
 }
 
 .right-section ul {
-    padding-left: 20px;
-    width: 30%;
-    background-color: white;
-    padding: 20px;
-}
-
-.location-image {
-  width: 100%; /* Ensure the image fits within its parent */
-  max-width: 400px; /* Set a more reasonable maximum width */
-  max-height: 200px; /* Set a more reasonable maximum height */
-  border-radius: 10px;
-  margin-bottom: 20px;
-  object-fit: cover; /* Ensure the image maintains its aspect ratio */
+  padding-left: 20px;
+  width: 30%;
+  background-color: white;
+  padding: 20px;
 }
 
 .location-info {
@@ -39,22 +53,19 @@
 }
 
 .location-name {
-  font-family: 'Inter', sans-serif;
-  font-size: 35px;
+  font-size: 2.1875rem; /* 35px */
   font-weight: normal;
   color: black;
 }
 
 .location-address {
-  font-family: 'Inter', sans-serif;
-  font-size: 20px;
+  font-size: 1.25rem; /* 20px */
   font-weight: normal;
   color: black;
 }
 
 .location-description {
-  font-family: 'Inter', sans-serif;
-  font-size: 20px;
+  font-size: 0.9375rem; /* 15px */
   font-weight: normal;
   color: black;
 }
@@ -66,35 +77,32 @@
 }
 
 .overall-rating {
-  font-family: 'Inter', sans-serif;
-  font-size: 40px;
+  font-size: 2.5rem; /* 40px */
   font-weight: 500;
   color: black;
   margin-right: 10px;
 }
 
 .star {
-  width: 40px;
-  height: 40px;
-  margin-right: 20px;
+  width: 2.5rem; /* 40px */
+  height: 2.5rem; /* 40px */
+  margin-right: 10px;
   pointer-events: none; /* Ensure the stars are not clickable */
 }
 
 .number-of-reviews {
-  font-family: 'Inter', sans-serif;
-  font-size: 15px;
+  font-size: 0.9375rem; /* 15px */
   font-weight: normal;
   color: black;
 }
 
 .write-review-button {
-  font-family: 'Inter', sans-serif;
-  font-size: 24px;
+  font-size: 1.5rem; /* 24px */
   font-weight: bold;
   color: white;
   background-color: #00B4F5;
-  width: 135px;
-  height: 70px;
+  width: 8.4375rem; /* 135px */
+  height: 4.375rem; /* 70px */
   border-radius: 10px;
   border: none;
   cursor: pointer;
@@ -104,22 +112,22 @@
   display: flex;
   align-items: center;
   margin-bottom: 20px;
+  flex-wrap: wrap; /* Ensure tags wrap to the next line */
 }
 
 .tag {
-  font-family: 'Inter', sans-serif;
-  font-size: 20px;
+  font-size: 1.25rem; /* 20px */
   font-weight: normal;
   color: white;
   background-color: #006BC3;
   padding: 5px 10px;
   border-radius: 8px;
   margin-right: 10px;
+  margin-bottom: 5px; /* Add bottom margin for wrapping */
 }
 
 .see-more-tags {
-  font-family: 'Inter', sans-serif;
-  font-size: 20px;
+  font-size: 1.25rem; /* 20px */
   font-weight: normal;
   color: white;
   background-color: #006BC3;
@@ -143,16 +151,14 @@
 }
 
 .rating-title {
-  font-family: 'Inter', sans-serif;
-  font-size: 20px;
+  font-size: 1.25rem; /* 20px */
   font-style: italic;
   color: black;
   margin-right: 10px;
 }
 
 .rating-value {
-  font-family: 'Inter', sans-serif;
-  font-size: 20px;
+  font-size: 1.25rem; /* 20px */
   color: black;
   margin-right: 10px;
 }
@@ -162,29 +168,26 @@
 }
 
 .reviews-summary-title {
-  font-family: 'Inter', sans-serif;
-  font-size: 25px;
+  font-size: 1.5625rem; /* 25px */
   font-weight: 500;
   color: black;
   margin-bottom: 10px;
 }
 
 .reviews-summary {
-  font-family: 'Inter', sans-serif;
-  font-size: 20px;
+  font-size: 1.25rem; /* 20px */
   font-weight: normal;
   color: black;
   margin-bottom: 20px;
 }
 
 .read-reviews-button {
-  font-family: 'Inter', sans-serif;
-  font-size: 24px;
+  font-size: 1.5rem; /* 24px */
   font-weight: bold;
   color: white;
   background-color: #66ABE8;
-  width: 522px;
-  height: 44px;
+  width: 32.625rem; /* 522px */
+  height: 2.75rem; /* 44px */
   border-radius: 10px;
   border: none;
   cursor: pointer;
