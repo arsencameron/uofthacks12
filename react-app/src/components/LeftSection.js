@@ -5,7 +5,7 @@ import GoogleMap from './GoogleMap';
 import PromptBar from './promptbar';
 import './LeftSection.css';
 
-function LeftSection({ activeTab, setActiveTab, handleSearch, handlePrompt, setSelectedPlace }) {
+function LeftSection({ activeTab, setActiveTab, handleSearch, handlePrompt, setSelectedPlace, selectedPlace }) {
     return (
         <div className="left-section">
             <header className="App-header">Explore Accessibility</header>
@@ -27,7 +27,7 @@ function LeftSection({ activeTab, setActiveTab, handleSearch, handlePrompt, setS
                 {activeTab === 'search' && <SearchBar onSearch={handleSearch} />}
                 {activeTab === 'generate' && <PromptBar onPrompt={handlePrompt} />}
             </div>
-            <GoogleMap setSelectedPlace={setSelectedPlace} /> {/* Pass setSelectedPlace */}
+            <GoogleMap selectedPlace={selectedPlace} setSelectedPlace={setSelectedPlace} /> {/* Pass setSelectedPlace */}
         </div>
     );
 }

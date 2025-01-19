@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import './RightSection.css';
-import sampleImage from '../assets/university-of-toronto-mississauga_hero.png'; // Import the image
 
-const RightSection = () => {
+const RightSection = ({ selectedPlace }) => {
   const [showMoreTags, setShowMoreTags] = useState(false);
 
   const accessibilityTags = [
@@ -26,20 +25,45 @@ const RightSection = () => {
     </svg>
   );
 
+  if (!selectedPlace) {
+    return (
+      <section className="right-section">
+        <h2>Select a location or search for one</h2>
+      </section>
+    );
+  }
+
   return (
     <section className="right-section">
-      <img src={sampleImage} alt="Location" className="location-image" /> {/* Use the imported image */}
+      {/* Location Image */}
+      <img
+        src={selectedPlace.photos && selectedPlace.photos[0] ? selectedPlace.photos[0] : 'https://via.placeholder.com/150'}
+        alt={selectedPlace.name}
+        className="location-image"
+      />
+
+      {/* Location Info */}
       <div className="location-info">
-        <h1 className="location-name">Sample Location</h1>
-        <h2 className="location-address">123 Sample Street</h2>
-        <p className="location-description">This is a sample description of the location. It provides detailed information about the location's features and amenities.</p>
+        <h1 className="location-name">{selectedPlace.name}</h1>
+        <h2 className="location-address">{selectedPlace.address}</h2>
+        <p className="location-description">
+          This is a sample description of the location. Customize this to add more details about the place.
+        </p>
         <div className="rating-section">
-          <span className="overall-rating">4.5</span>
-          <Star filled={true} />
-          <p className="number-of-reviews">100 reviews</p>
+          {selectedPlace.rating && (
+            <>
+              <span className="overall-rating">{selectedPlace.rating}</span>
+              {[...Array(5)].map((_, i) => (
+                <Star key={i} filled={i < Math.round(selectedPlace.rating)} />
+              ))}
+              <p className="number-of-reviews">100 reviews</p>
+            </>
+          )}
         </div>
         <button className="write-review-button">Write a Review</button>
       </div>
+
+      {/* Accessibility Tags */}
       <div className="tags-section">
         {accessibilityTags.map((tag, index) => {
           if (!showMoreTags && index >= 5) return null;
@@ -51,6 +75,8 @@ const RightSection = () => {
           </button>
         )}
       </div>
+
+      {/* Detailed Ratings */}
       <div className="star-ratings">
         <div className="rating">
           <span className="rating-title">Physical</span>
@@ -70,27 +96,31 @@ const RightSection = () => {
             ))}
           </div>
         </div>
-        <div className="rating">
-          <span className="rating-title">Visual</span>
-          <span className="rating-value">5</span>
-          <div className="stars">
+        <div class="rating">
+          <span class="rating-title">Visual</span>
+          <span class="rating-value">5</span>
+          <div class="stars">
             {[...Array(5)].map((_, i) => (
               <Star key={i} filled={i < 5} />
             ))}
           </div>
         </div>
-        <div className="rating">
-          <span className="rating-title">Cognitive</span>
-          <span className="rating-value">2</span>
-          <div className="stars">
+        <div class="rating">
+          <span class="rating-title">Cognitive</span>
+          <span class="rating-value">2</span>
+          <div class="stars">
             {[...Array(5)].map((_, i) => (
               <Star key={i} filled={i < 2} />
             ))}
           </div>
         </div>
       </div>
+
+      {/* Reviews Summary */}
       <h3 className="reviews-summary-title">Reviews Summary✨</h3>
-      <p className="reviews-summary">This is a summary of the reviews. It provides an overview of what people think about the location.</p>
+      <p className="reviews-summary">
+        This is a summary of the reviews. It provides an overview of what people think about the location.
+      </p>
       <button className="read-reviews-button">Read Reviews</button>
     </section>
   );

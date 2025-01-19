@@ -8,17 +8,53 @@ function Home() {
     const [activeTab, setActiveTab] = useState('search'); // Manage active tab (search or generate)
 
     const handleSearch = (searchTerm) => {
-        console.log('Search Term:', searchTerm);
+        if (!searchTerm) return;
 
-        // Example: Simulating a search and setting a place
-        const simulatedPlace = {
-            lat: 43.6532,
-            lng: -79.3832,
-            name: `Simulated Place for "${searchTerm}"`,
-            address: '123 Example Street, Toronto, ON',
+        const service = new window.google.maps.places.PlacesService(document.createElement('div'));
+
+        const queryRequest = {
+            query: searchTerm,
+            fields: ['name', 'formatted_address', 'geometry', 'photos', 'place_id', 'types'],
         };
-        setSelectedPlace(simulatedPlace);
+
+        service.findPlaceFromQuery(queryRequest, (results, status) => {
+            if (status === window.google.maps.places.PlacesServiceStatus.OK && results.length > 0) {
+                const place = results[0];
+
+                // Use getDetails to fetch additional details
+                const detailsRequest = {
+                    placeId: place.place_id,
+                    fields: ['name', 'formatted_address', 'geometry', 'rating', 'opening_hours', 'photos', 'website', 'types'],
+                };
+
+                service.getDetails(detailsRequest, (placeDetails, detailsStatus) => {
+                    if (detailsStatus === window.google.maps.places.PlacesServiceStatus.OK) {
+                        setSelectedPlace({
+                            lat: placeDetails.geometry.location.lat(),
+                            lng: placeDetails.geometry.location.lng(),
+                            name: placeDetails.name,
+                            address: placeDetails.formatted_address,
+                            rating: placeDetails.rating,
+                            website: placeDetails.website || null,
+                            openingHours: placeDetails.opening_hours
+                                ? placeDetails.opening_hours.weekday_text
+                                : 'No opening hours available',
+                            types: placeDetails.types ? placeDetails.types.join(', ') : null,
+                            photos: placeDetails.photos
+                                ? placeDetails.photos.map((photo) => photo.getUrl())
+                                : [],
+                        });
+                    } else {
+                        console.error('Failed to fetch place details:', detailsStatus);
+                    }
+                });
+            } else {
+                console.error('Place not found:', status);
+            }
+        });
     };
+
+
 
     const handlePrompt = (promptTerm) => {
         console.log('Prompt Term:', promptTerm);
@@ -33,6 +69,7 @@ function Home() {
                 handleSearch={handleSearch} // Pass search handler
                 handlePrompt={handlePrompt} // Pass prompt handler
                 setSelectedPlace={setSelectedPlace} // Pass map click handler
+                selectedPlace={selectedPlace}
             />
             <RightSection selectedPlace={selectedPlace} /> {/* Pass selectedPlace */}
         </div>

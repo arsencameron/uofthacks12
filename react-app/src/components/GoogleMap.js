@@ -7,7 +7,7 @@ const containerStyle = {
   borderRadius: '22px',
 };
 
-const center = {
+const defaultCenter = {
   lat: 43.6532,
   lng: -79.3832,
 };
@@ -41,6 +41,7 @@ function MapComponent({selectedPlace, setSelectedPlace}) {
           // Fetch more details about the selected place
           const detailsRequest = {
             placeId: place.place_id,
+            placeId: place.place_id,
             fields: [
               'name',
               'formatted_address',
@@ -50,6 +51,7 @@ function MapComponent({selectedPlace, setSelectedPlace}) {
               'photos',
               'website',
               'types',
+            ],
             ],
           };
 
