@@ -6,7 +6,7 @@ from flask_cors import CORS
 from psycopg2.extras import RealDictCursor
 import json
 from datetime import datetime
-from gemini import get_summary, get_embedding, get_sorted_locations
+from gemini import get_summary, get_embedding, get_sorted_locations, check_same
 import numpy as np
 
 # Load environment variables from .env
@@ -103,6 +103,10 @@ def query_locations():
     finally:
         cursor.close()
         conn.close()
+
+@app.route(f"/<string:address1>/<string:address2>")
+def check_similar(address1, address2):
+    return check_same(address1, address2)
 
 @app.route("/reviews", methods=["POST"])
 def add_review():

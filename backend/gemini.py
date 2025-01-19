@@ -16,6 +16,17 @@ def get_summary(reviews):
     print(response.text)
     return response.text
 
+def check_same(address1, address2):
+    model = genai.GenerativeModel("gemini-1.5-flash")
+    prompt = f"""
+    Compare the following two addresses and determine if they describe the same location:
+    Address 1: "{address1}"
+    Address 2: "{address2}"
+
+    Respond with "YES" if they describe the same place, otherwise respond with "NO".
+    """
+    response = model.generate_content(prompt)
+    return "YES" in response
 def get_embedding(text):
     result = genai.embed_content(
         model="models/text-embedding-004",

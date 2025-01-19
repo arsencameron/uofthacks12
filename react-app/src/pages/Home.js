@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import LeftSection from '../components/LeftSection';
 import RightSection from '../components/RightSection';
 import './Home.css';
+import axios from 'axios';
 
 function Home() {
     const [selectedPlace, setSelectedPlace] = useState(null); // Centralized state for selected place
@@ -17,19 +18,18 @@ function Home() {
             fields: ['name', 'formatted_address', 'geometry', 'photos', 'place_id', 'types'],
         };
 
-        service.findPlaceFromQuery(queryRequest, (results, status) => {
+        service.findPlaceFromQuery(queryRequest, async (results, status) => {
             if (status === window.google.maps.places.PlacesServiceStatus.OK && results.length > 0) {
                 const place = results[0];
 
-                // Use getDetails to fetch additional details
                 const detailsRequest = {
                     placeId: place.place_id,
                     fields: ['name', 'formatted_address', 'geometry', 'rating', 'opening_hours', 'photos', 'website', 'types'],
                 };
 
-                service.getDetails(detailsRequest, (placeDetails, detailsStatus) => {
+                service.getDetails(detailsRequest, async (placeDetails, detailsStatus) => {
                     if (detailsStatus === window.google.maps.places.PlacesServiceStatus.OK) {
-                        setSelectedPlace({
+                        const selectedPlace = {
                             lat: placeDetails.geometry.location.lat(),
                             lng: placeDetails.geometry.location.lng(),
                             name: placeDetails.name,
@@ -43,7 +43,34 @@ function Home() {
                             photos: placeDetails.photos
                                 ? placeDetails.photos.map((photo) => photo.getUrl())
                                 : [],
-                        });
+                        };
+
+                        try {
+                            // Fetch additional data from the locations table
+                            const response = await axios.get("http://localhost:5000/locations");
+                            const locations = response.data;
+
+                            let matchingLocation = null;
+
+                            // Check if the selectedPlace matches a location in the database
+                            for (const location of locations) {
+                                const matchResponse = await axios.get(`http://localhost:5000/${selectedPlace.name}/${location.name}`);
+                                if (matchResponse.data === true) {
+                                    matchingLocation = location;
+                                    break; // Exit loop once a match is found
+                                }
+                            }
+
+                            if (matchingLocation) {
+                                selectedPlace.accessibilityRatings = matchingLocation.accessibility_ratings;
+                                selectedPlace.summary = matchingLocation.summary;
+                            }
+
+                            setSelectedPlace(selectedPlace);
+                    } catch (error) {
+                            console.error('Error fetching location data:', error);
+                            setSelectedPlace(selectedPlace);
+                        }
                     } else {
                         console.error('Failed to fetch place details:', detailsStatus);
                     }
@@ -53,7 +80,6 @@ function Home() {
             }
         });
     };
-
 
 
     const handlePrompt = (promptTerm) => {
