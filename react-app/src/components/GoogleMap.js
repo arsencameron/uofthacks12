@@ -119,7 +119,9 @@ function MapComponent({selectedPlace, setSelectedPlace}) {
           ) : null;
         })}
         {selectedPlace && (
-              <Marker position={{ lat: selectedPlace.lat, lng: selectedPlace.lng }} />
+              <Marker position={{ lat: selectedPlace.lat, lng: selectedPlace.lng }} 
+              icon={"http://maps.google.com/mapfiles/ms/icons/blue.png"}
+              />
           )}
       </GoogleMap>
     </LoadScript>
