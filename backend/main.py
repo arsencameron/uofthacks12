@@ -149,7 +149,6 @@ def add_review():
             """,
             (review["title"], review["text"], review["location_id"], review["user_id"], json.dumps(review["accessibility_ratings"]), review["timestamp"]),
         )
-        print("Success here")
         result = cursor.fetchone()
         print(result)
         if result:

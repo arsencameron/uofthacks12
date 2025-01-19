@@ -4,6 +4,7 @@
   },
   "dependencies": {
     "@react-google-maps/api": "^2.20.5",
+    "axios": "^1.7.9",
     "dotenv": "^16.4.7",
     "react-router-dom": "^7.1.3"
   }
