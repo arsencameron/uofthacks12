@@ -20,14 +20,6 @@ body {
   padding: 0;
 }
 
-.right-section {
-  width: 30%;
-  background: #ffffff;
-  padding: 20px;
-  box-sizing: border-box;
-  overflow-y: auto;
-  overflow-x: hidden;
-}
 
 .right-section .location-image {
   width: 100%;

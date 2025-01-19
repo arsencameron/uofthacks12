@@ -1,12 +1,4 @@
-.review-container {
-    display: flex;
-    justify-content: left;
-    align-items: center;
-    height: 100vh; /* Full viewport height */
-    padding: 100px;
-    box-sizing: border-box;
-  }
-  
+
   .review-content {
     display: flex;
     justify-content: space-between;

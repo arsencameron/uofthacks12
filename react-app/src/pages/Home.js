@@ -2,11 +2,13 @@ import React, { useState } from 'react';
 import LeftSection from '../components/LeftSection';
 import RightSection from '../components/RightSection';
 import './Home.css';
+import Review from '../components/Review'
 import axios from 'axios';
 
 function Home() {
     const [selectedPlace, setSelectedPlace] = useState(null); // Centralized state for selected place
     const [activeTab, setActiveTab] = useState('search'); // Manage active tab (search or generate)
+    const [showReview, setShowReview] = useState(false);
 
     const handleSearch = (searchTerm) => {
         if (!searchTerm) return;
@@ -82,6 +84,10 @@ function Home() {
         // Add logic for prompt handling if needed
     };
 
+    const handleWriteReviewClick = () => {
+        setShowReview(true);
+      };
+
     return (
         <div className="home-container">
             <LeftSection
@@ -93,6 +99,11 @@ function Home() {
                 selectedPlace={selectedPlace}
             />
             <RightSection selectedPlace={selectedPlace} /> {/* Pass selectedPlace */}
+            {/* {showReview ? (
+                <Review />
+            ) : (
+                <RightSection handleWriteReviewClick={handleWriteReviewClick} />
+            )} */}
         </div>
     );
 }

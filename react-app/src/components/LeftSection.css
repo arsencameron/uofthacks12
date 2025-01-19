@@ -1,11 +1,4 @@
-.left-section {
-    /* flex: 3;  */
-    width: 70%;
-    background: #F0F8FF; 
-    padding: 20px;
-    height: 100%; /* Ensure the left section takes up the full height */
-    box-sizing: border-box; 
-  }
+
   
   .tabs-container {
     display: flex;
@@ -129,18 +122,12 @@
     height: 20px; /* Adjust size as needed */
   }
 
-  .search-filter-container {
-    display: flex; /* Ensure the search bar and filter bar are aligned horizontally */
-    align-items: center;
-    width: 100%;
-    margin-top: 10px; /* Add some space between the tabs and the search bar */
-    position: relative;
-  }
 
-  .filter-bar {
+
+  /* .filter-bar {
     display: flex;
     align-items: center;
-    margin-left: 20px; /* Add some space between the search bar and the filter bar */
+    margin-left: 20px; 
   }  
   
   .filter-bar label {
@@ -151,4 +138,4 @@
     padding: 5px;
     font-size: 16px;
     height: auto;
-  }
+  } */

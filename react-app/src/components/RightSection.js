@@ -2,8 +2,10 @@ import React, { useState } from 'react';
 import './RightSection.css';
 import Review from './Review.js'
 
-const RightSection = ({ selectedPlace }) => {
-    const [showMoreTags, setShowMoreTags] = useState(false);
+const RightSection = ({ selectedPlace, handleWriteReviewClick }) => {
+  const [showMoreTags, setShowMoreTags] = useState(false);
+  const [showReview, setShowReview] = useState(false);
+
 
     const accessibilityTags = [
         "Stroller-friendly",
@@ -26,21 +28,23 @@ const RightSection = ({ selectedPlace }) => {
         </svg>
     );
 
-    if (!selectedPlace) {
-        return (
-            <section className="right-section">
-                <h2>Select a location or search for one</h2>
-            </section>
-        );
-    }
+  if (!selectedPlace) {
+    return (
+      <section className="right-section">
+        <h2>Select a location or search for one</h2>
+      </section>
+    );
+  }
 
-    if (showReview) {
-        return (
-            <section className="right-section">
-                <Review />
-            </section>
-        );
-    }
+  // If "Write a Review" has been clicked, show the Review component instead
+  if (showReview) {
+    return (
+      <section className="right-section">
+        <Review />
+      </section>
+    );
+  }
+
     return (
         <section className="right-section">
             {/* Location Image */}
@@ -50,26 +54,26 @@ const RightSection = ({ selectedPlace }) => {
                 className="location-image"
             />
 
-            {/* Location Info */}
-            <div className="location-info">
-                <h1 className="location-name">{selectedPlace.name}</h1>
-                <h2 className="location-address">{selectedPlace.address}</h2>
-                <p className="location-description">
-                    This is a sample description of the location. Customize this to add more details about the place.
-                </p>
-                <div className="rating-section">
-                    {selectedPlace.rating && (
-                        <>
-                            <span className="overall-rating">{selectedPlace.rating}</span>
-                            {[...Array(5)].map((_, i) => (
-                                <Star key={i} filled={i < Math.round(selectedPlace.rating)} />
-                            ))}
-                            <p className="number-of-reviews">100 reviews</p>
-                        </>
-                    )}
-                </div>
-                <button className="write-review-button" onClick={() => setShowReview(true)}>Write a Review</button>
-            </div>
+      {/* Location Info */}
+      <div className="location-info">
+        <h1 className="location-name">{selectedPlace.name}</h1>
+        <h2 className="location-address">{selectedPlace.address}</h2>
+        <p className="location-description">
+          This is a sample description of the location. Customize this to add more details about the place.
+        </p>
+        <div className="rating-section">
+          {selectedPlace.rating && (
+            <>
+              <span className="overall-rating">{selectedPlace.rating}</span>
+              {[...Array(5)].map((_, i) => (
+                <Star key={i} filled={i < Math.round(selectedPlace.rating)} />
+              ))}
+              <p className="number-of-reviews">100 reviews</p>
+            </>
+          )}
+        </div>
+        <button className="write-review-button" onClick={() => setShowReview(true)}>Write a Review</button>
+      </div>
 
             {/* Accessibility Tags */}
             <div className="tags-section">
