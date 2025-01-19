@@ -26,7 +26,7 @@ function LeftSection({ activeTab, setActiveTab, handleSearch, handlePrompt }) {
           </button>
         </div>
         {activeTab === 'search' && <SearchBar onSearch={handleSearch} />}
-        {activeTab === 'generate' && <PromptBar onSearch={handlePrompt}/>}
+        {activeTab === 'generate' && <PromptBar onPrompt={handlePrompt}/>}
       </div>
       <GoogleMap />
     </div>
