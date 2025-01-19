@@ -49,32 +49,40 @@ function Home() {
                         };
 
                         try {
-                            // Fetch additional data from the locations table
+                            // Fetch locations from the database
                             const response = await axios.get("http://127.0.0.1:5000/locations");
                             const locations = response.data;
 
-                            // Check if the selectedPlace matches a location in the database
+                            // Find a matching location
                             const matchingLocation = locations.find(
                                 (location) =>
                                     location.name.toLowerCase() === selectedPlace.name.toLowerCase()
                             );
 
                             if (matchingLocation) {
+                                // Add additional data to `selectedPlace`
                                 selectedPlace.accessibilityRatings = matchingLocation.accessibility_ratings;
-                                selectedPlace.summary = matchingLocation.summary;
-                            }
+                                selectedPlace.location_id = matchingLocation.location_id;
 
+                                // Fetch the summary for the matching location
+                                const summaryResponse = await axios.get(
+                                    `http://127.0.0.1:5000/locations/${matchingLocation.location_id}`
+                                );
+                                selectedPlace.summary = summaryResponse.data.summary;
+                            } else {
+                                console.log("Not found in database");
+                            }
                             setSelectedPlace(selectedPlace);
-                    } catch (error) {
-                            console.error('Error fetching location data:', error);
+                        } catch (error) {
+                            console.error("Error fetching location data or summary:", error);
                             setSelectedPlace(selectedPlace);
                         }
                     } else {
-                        console.error('Failed to fetch place details:', detailsStatus);
+                        console.error("Failed to fetch place details:", detailsStatus);
                     }
                 });
             } else {
-                console.error('Place not found:', status);
+                console.error("Place not found:", status);
             }
         });
     };

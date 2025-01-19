@@ -233,7 +233,7 @@ def add_review():
         cursor.close()
         conn.close()
 
-@app.route("/location_summary/<int:location_id>")
+@app.route("/locations/<location_id>", methods=["GET"])
 def get_location_summary(location_id):
     conn = get_db_connection()
     if not conn:
@@ -241,8 +241,10 @@ def get_location_summary(location_id):
     try:
         cursor = conn.cursor(cursor_factory=RealDictCursor)
         cursor.execute("SELECT summary FROM locations WHERE location_id = %s", (location_id,))
-        summary = cursor.fetchone()
-        return jsonify(summary) if summary else jsonify({"summary": None})
+        location = cursor.fetchone()
+        if not location:
+            abort(404, description="Location not found")
+        return jsonify(location)
     except Exception as e:
         print(f"Error fetching location summary: {e}")
         abort(500, description="Failed to fetch location summary")
@@ -251,7 +253,7 @@ def get_location_summary(location_id):
         conn.close()
 
 
-@app.route("/search", methods=["GET"])
+@app.route("/search", methods=["POST"])
 def search():
     conn = get_db_connection()
     if not conn:
