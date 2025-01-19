@@ -20,7 +20,6 @@ def get_embedding(text):
     result = genai.embed_content(
         model="models/text-embedding-004",
         content=f"{text}")
-    print(result['embedding'])
     return result['embedding']
 
 def cosine_similarity(vector1, vector2):
@@ -41,11 +40,10 @@ def get_sorted_locations(prompt_embedding: np.ndarray, summary_embeddings: List[
         List[Tuple[str, float]]: A sorted list of locations and their similarity scores in descending order.
     """
     similarities = [
-        (name, cosine_similarity(prompt_embedding, np.array(embedding)))
-        for name, embedding in summary_embeddings
+        (name, cosine_similarity(prompt_embedding, np.array(embedding)), location_id)
+        for name, embedding, location_id in summary_embeddings
     ]
 
     # Sort by similarity in descending order
     sorted_locations = sorted(similarities, key=lambda x: x[1], reverse=True)
-
     return sorted_locations

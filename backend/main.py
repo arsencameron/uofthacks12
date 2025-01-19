@@ -7,6 +7,7 @@ from psycopg2.extras import RealDictCursor
 import json
 from datetime import datetime
 from gemini import get_summary, get_embedding, get_sorted_locations
+import numpy as np
 
 # Load environment variables from .env
 load_dotenv()
@@ -194,20 +195,42 @@ def search():
         data = request.get_json()
         if not data:
             return jsonify({"error": "Invalid or missing JSON data"}), 400
+
         user_prompt = data.get("prompt", "No prompt provided")
         prompt_embedding = get_embedding(user_prompt)
+
         cursor.execute("""
-            SELECT l.name, l.embedding
+            SELECT l.name, l.embedding, l.location_id
             FROM locations l
-            """, )
+            WHERE l.embedding IS NOT NULL
+        """)
         summary_embeddings = cursor.fetchall()
-        return get_sorted_locations(prompt_embedding, summary_embeddings)
+
+        # Convert string embeddings to NumPy arrays
+        valid_embeddings = []
+        for entry in summary_embeddings:
+            try:
+                if isinstance(entry['embedding'], str):  # If it's JSON string, parse it
+                    entry['embedding'] = np.array(json.loads(entry['embedding']))
+                elif isinstance(entry['embedding'], list):  # Already a list, convert to array
+                    entry['embedding'] = np.array(entry['embedding'])
+                valid_embeddings.append((entry['name'], entry['embedding'], entry['location_id']))
+            except Exception as e:
+                print(f"Failed to process embedding for {entry['name']}: {e}")
+
+        if not valid_embeddings:
+            return jsonify({"error": "No valid embeddings found in database"}), 500
+
+        sorted_locations = get_sorted_locations(prompt_embedding, [(entry['name'], entry['embedding'], entry['location_id']) for entry in summary_embeddings])
+        return jsonify(sorted_locations)
+
     except Exception as e:
         print(f"Error searching locations: {e}")
         abort(500, description="Failed to search locations")
     finally:
         cursor.close()
         conn.close()
+
 
 # @app.route("/")
 # def home():
