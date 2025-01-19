@@ -1,0 +1,69 @@
+.review-container {
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    height: 100vh; /* Full viewport height */
+    padding: 100px;
+    box-sizing: border-box;
+  }
+  
+  .review-content {
+    display: flex;
+    justify-content: space-between;
+    width: 80%; /* Adjust as needed */
+    max-width: 1200px; /* Adjust as needed */
+  }
+  
+  .review-left {
+    width: 45%;
+    margin-right: 100px; /* Add margin to the right */
+  }
+  
+  .review-right {
+    width: 45%;
+  }
+  
+  .ratings {
+    margin-top: 20px;
+  }
+  
+  .rating {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+  }
+  
+  .form-group {
+    margin-bottom: 15px;
+  }
+  
+  .form-group label {
+    display: block;
+    margin-bottom: 5px;
+  }
+  
+  .form-group input,
+  .form-group textarea {
+    width: 100%; /* Make the text boxes take up the full width of the form group */
+    padding: 8px;
+    box-sizing: border-box;
+  }
+  
+  .form-group textarea {
+    height: 150px; /* Increase the height of the description box */
+  }
+  
+  .star {
+    cursor: pointer;
+    font-size: 24px;
+    display: inline-block; /* Ensure stars are displayed inline */
+    border: none; /* Remove any border */
+    background: none; /* Remove any background */
+    padding: 0; /* Remove any padding */
+    margin: 0 2px; /* Add a small margin between stars */
+    color: black;
+  }
+  
+  .star.active {
+    color: gold;
+  }
