@@ -47,19 +47,14 @@ function Home() {
 
                         try {
                             // Fetch additional data from the locations table
-                            const response = await axios.get("http://localhost:5000/locations");
+                            const response = await axios.get("http://127.0.0.1:5000/locations");
                             const locations = response.data;
 
-                            let matchingLocation = null;
-
                             // Check if the selectedPlace matches a location in the database
-                            for (const location of locations) {
-                                const matchResponse = await axios.get(`http://localhost:5000/${selectedPlace.name}/${location.name}`);
-                                if (matchResponse.data === true) {
-                                    matchingLocation = location;
-                                    break; // Exit loop once a match is found
-                                }
-                            }
+                            const matchingLocation = locations.find(
+                                (location) =>
+                                    location.name.toLowerCase() === selectedPlace.name.toLowerCase()
+                            );
 
                             if (matchingLocation) {
                                 selectedPlace.accessibilityRatings = matchingLocation.accessibility_ratings;

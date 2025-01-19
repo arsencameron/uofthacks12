@@ -25,7 +25,8 @@ body {
   background: #ffffff;
   padding: 20px;
   box-sizing: border-box;
-  overflow: auto; /* Use auto instead of scroll */
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 
 .right-section .location-image {
@@ -186,9 +187,10 @@ body {
   font-weight: bold;
   color: white;
   background-color: #66ABE8;
-  width: 32.625rem; /* 522px */
+  width: 100%; /* 522px */
   height: 2.75rem; /* 44px */
   border-radius: 10px;
   border: none;
   cursor: pointer;
+
 }

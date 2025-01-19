@@ -104,9 +104,6 @@ def query_locations():
         cursor.close()
         conn.close()
 
-@app.route(f"/<string:address1>/<string:address2>")
-def check_similar(address1, address2):
-    return check_same(address1, address2)
 
 @app.route("/locations_coordinate")
 def query_locations_coordinate():
