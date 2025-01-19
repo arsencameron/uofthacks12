@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import magnifying_glass from "../assets/magnifying-glass.svg";
 
 function SearchBar({ onSearch }) {
   const [searchTerm, setSearchTerm] = useState('');
@@ -14,13 +15,17 @@ function SearchBar({ onSearch }) {
 
   return (
     <form className="search-bar" onSubmit={handleSearchSubmit}>
-      <input
-        type="text"
-        placeholder="Search..."
-        value={searchTerm}
-        onChange={handleSearchChange}
-      />
-      <button type="submit">Search</button>
+      <div className="search-input-container">
+        <input
+          type="text"
+          placeholder="Search..."
+          value={searchTerm}
+          onChange={handleSearchChange}
+        />
+        <button type="submit" className="search-button">
+          <img src={magnifying_glass} alt="Search" />
+        </button>
+      </div>
     </form>
   );
 }

@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import SearchBar from './searchbar';
 import GoogleMap from './GoogleMap';
+import PromptBar from './promptbar';
 import './LeftSection.css';
 
-function LeftSection({ activeTab, setActiveTab, handleSearch }) {
+function LeftSection({ activeTab, setActiveTab, handleSearch, handlePrompt }) {
   return (
     <div className="left-section">
       <header className="App-header">
@@ -25,7 +26,7 @@ function LeftSection({ activeTab, setActiveTab, handleSearch }) {
           </button>
         </div>
         {activeTab === 'search' && <SearchBar onSearch={handleSearch} />}
-        {activeTab === 'generate' && <div>Generate Content Here</div>}
+        {activeTab === 'generate' && <PromptBar onSearch={handlePrompt}/>}
       </div>
       <GoogleMap />
     </div>

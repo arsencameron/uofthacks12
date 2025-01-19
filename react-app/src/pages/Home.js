@@ -11,9 +11,14 @@ function Home() {
     // Add your search logic here
   };
 
+  const handlePrompt = (promptTerm) => {
+    console.log('Prompt Term:', promptTerm);
+    // Add your search logic here
+  };
+
   return (
     <div className="home-container">
-      <LeftSection activeTab={activeTab} setActiveTab={setActiveTab} handleSearch={handleSearch} />
+      <LeftSection activeTab={activeTab} setActiveTab={setActiveTab} handleSearch={handleSearch} handlePrompt={handlePrompt}/>
       <RightSection />
     </div>
   );

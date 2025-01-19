@@ -3,14 +3,15 @@
     background: #E2E2E2; /* Gray background */
     padding: 20px;
     height: 100%; /* Ensure the left section takes up the full height */
-    box-sizing: border-box; /* Include padding in the height calculation */
+    box-sizing: border-box; 
   }
   
   .tabs-container {
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: flex-start;
     margin-top: 0px;
+    margin-left: 10px;
     margin-bottom: 20px;
   }
   
@@ -24,11 +25,13 @@
     padding: 10px 20px;
     font-size: 16px;
     border: none;
-    border-radius: 20px;
     background-color: #ccc;
     color: white;
     cursor: pointer;
-    margin: 0 10px;
+    margin: 0;
+    border-radius: 0;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
   }
   
   .tab.active {
@@ -36,7 +39,7 @@
   }
   
   .tab:hover {
-    background-color: #005577;
+    background-color: #7eb7f0;
   }
   
   .search-bar {
@@ -46,25 +49,71 @@
     width: 100%;
   }
   
-  .search-bar input {
-    padding: 10px;
+  .search-input-container {
+    position: relative;
+    width: 600px; /* Adjust width as needed */
+  }
+  
+  .search-input-container input {
+    width: 100%;
+    padding: 10px 40px 10px 10px; /* Add padding to the right for the image */
     font-size: 16px;
     border: 1px solid #ccc;
-    border-radius: 20px; /* Make the input rounded */
-    width: 300px; /* Adjust width as needed */
+    box-sizing: border-box; /* Include padding in the width calculation */
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
   }
   
-  .search-bar button {
-    padding: 10px 20px;
-    font-size: 16px;
+  .search-input-container .search-button {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
     border: none;
-    border-radius: 20px; /* Make the button rounded */
-    background-color: #00698F;
-    color: white;
+    background: none;
+    padding: 0;
     cursor: pointer;
-    margin-left: 10px; /* Add some space between the input and button */
   }
   
-  .search-bar button:hover {
-    background-color: #005577;
+  .search-input-container .search-button img {
+    width: 20px; /* Adjust size as needed */
+    height: 20px; /* Adjust size as needed */
+  }
+
+  .prompt-bar {
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    width: 100%;
+  }
+  
+  .prompt-input-container {
+    position: relative;
+    width: 600px; /* Adjust width as needed */
+  }
+  
+  .prompt-input-container input {
+    width: 100%;
+    padding: 10px 40px 10px 10px; /* Add padding to the right for the image */
+    font-size: 16px;
+    border: 1px solid #ccc;
+    box-sizing: border-box; /* Include padding in the width calculation */
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+  }
+  
+  .prompt-input-container .prompt-button {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    border: none;
+    background: none;
+    padding: 0;
+    cursor: pointer;
+  }
+  
+  .prompt-input-container .prompt-button img {
+    width: 20px; /* Adjust size as needed */
+    height: 20px; /* Adjust size as needed */
   }
