@@ -26,56 +26,88 @@ function Review() {
       title,
       description,
       ratings,
+      location_id: "sample_location_id", // Replace with the actual location ID
+      user_id: "sample_user_id", // Replace with the actual user ID
     };
-    // Submit the review data
+
+    try {
+      const response = await fetch("http://localhost:5000/reviews", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(reviewData),
+      });
+
+      if (response.ok) {
+        const result = await response.json();
+        alert("Review submitted successfully!");
+        console.log("Response:", result);
+        setName('');
+        setTitle('');
+        setDescription('');
+        setRatings({
+          visual: 0,
+          auditory: 0,
+          cognitive: 0,
+          physical: 0,
+        });
+      } else {
+        alert("Failed to submit review.");
+        console.error("Error:", response.statusText);
+      }
+    } catch (error) {
+      console.error("Error submitting review:", error);
+      alert("An error occurred while submitting the review.");
+    }
   };
 
   return (
-    <div className="review-container">
-      <form onSubmit={handleSubmit}>
-        <div className="form-group">
-          <label htmlFor="name">Name (Optional):</label>
-          <input
-            type="text"
-            id="name"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-          />
-        </div>
-        {['visual', 'auditory', 'cognitive', 'physical'].map((category) => (
-          <div key={category} className="form-group">
-            <label>{category.charAt(0).toUpperCase() + category.slice(1)}:</label>
-            {[1, 2, 3, 4, 5].map((star) => (
-              <span
-                key={star}
-                className={`star ${ratings[category] >= star ? 'active' : ''}`}
-                onClick={() => handleRatingChange(category, star)}
-              >
-                {ratings[category] >= star ? '★' : '☆'}
-              </span>
-            ))}
+      <div className="review-container">
+        <form onSubmit={handleSubmit}>
+          <div className="form-group">
+            <label htmlFor="name">Name (Optional):</label>
+            <input
+                type="text"
+                id="name"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+            />
           </div>
-        ))}
-        <div className="form-group">
-          <label htmlFor="title">Title:</label>
-          <input
-            type="text"
-            id="title"
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-          />
-        </div>
-        <div className="form-group">
-          <label htmlFor="description">Review:</label>
-          <textarea
-            id="description"
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
-          />
-        </div>
-        <button type="submit">Submit</button>
-      </form>
-    </div>
+          {['visual', 'auditory', 'cognitive', 'physical'].map((category) => (
+              <div key={category} className="form-group">
+                <label>{category.charAt(0).toUpperCase() + category.slice(1)}:</label>
+                {[1, 2, 3, 4, 5].map((star) => (
+                    <span
+                        key={star}
+                        className={`star ${ratings[category] >= star ? 'active' : ''}`}
+                        onClick={() => handleRatingChange(category, star)}
+                    >
+                                {ratings[category] >= star ? '★' : '☆'}
+                            </span>
+                ))}
+              </div>
+          ))}
+          <div className="form-group">
+            <label htmlFor="title">Title:</label>
+            <input
+                type="text"
+                id="title"
+                value={title}
+                onChange={(e) => setTitle(e.target.value)}
+            />
+          </div>
+          <div className="form-group">
+            <label htmlFor="description">Review:</label>
+            <textarea
+                id="description"
+                value={description}
+                onChange={(e) => setDescription(e.target.value)}
+            />
+          </div>
+          <button type="submit">Submit</button>
+        </form>
+      </div>
   );
 }
 

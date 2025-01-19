@@ -8,10 +8,28 @@ function PromptBar({ onPrompt }) {
     setPromptTerm(event.target.value);
   };
 
-  const handlePromptSubmit = (event) => {
+  const handlePromptSubmit = async (event) => {
     event.preventDefault();
-    onPrompt(promptTerm);
+    try {
+      const response = await fetch("http://127.0.0.1:5000/search", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ prompt: promptTerm }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to fetch locations");
+      }
+
+      const sortedLocations = await response.json();
+      onPrompt(sortedLocations); // Pass data to parent
+    } catch (error) {
+      console.error("Error fetching sorted locations:", error);
+    }
   };
+
 
   return (
     <form className="prompt-bar" onSubmit={handlePromptSubmit}>

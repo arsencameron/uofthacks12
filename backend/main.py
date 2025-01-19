@@ -234,7 +234,7 @@ def add_review():
         cursor.close()
         conn.close()
 
-@app.route("/search", methods=["GET"])
+@app.route("/search", methods=["POST"])
 def search():
     conn = get_db_connection()
     if not conn:
