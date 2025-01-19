@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api';
 
 const containerStyle = {
@@ -7,18 +7,21 @@ const containerStyle = {
   borderRadius: '22px',
 };
 
-const defaultCenter = {
+const center = {
   lat: 43.6532,
   lng: -79.3832,
 };
 
-function MapComponent({ selectedPlace, setSelectedPlace }) {
+function MapComponent({selectedPlace, setSelectedPlace}) {
   const mapRef = useRef(null);
 
   const onLoad = (map) => {
     mapRef.current = map;
-  };
+  }
 
+  const [locations, setLocations] = useState([]);
+
+  
   const handleMapClick = (event) => {
     const lat = event.latLng.lat();
     const lng = event.latLng.lng();
@@ -38,6 +41,7 @@ function MapComponent({ selectedPlace, setSelectedPlace }) {
 
           // Fetch more details about the selected place
           const detailsRequest = {
+            placeId: place.place_id,
             placeId: place.place_id,
             fields: [
               'name',
@@ -76,29 +80,51 @@ function MapComponent({ selectedPlace, setSelectedPlace }) {
       });
     }
   };
-
+  // Fetch locations from Flask API
   useEffect(() => {
-    if (mapRef.current && selectedPlace) {
-      const newCenter = { lat: selectedPlace.lat, lng: selectedPlace.lng };
-      mapRef.current.panTo(newCenter);
-      mapRef.current.setZoom(15);
-    }
+    fetch("http://127.0.0.1:5000/locations_coordinate") // Replace with your API URL
+      .then((response) => response.json())
+      .then((data) => {
+        setLocations(data);
+      })
+      .catch((error) => console.error("Error fetching locations:", error));
+
+      if (mapRef.current && selectedPlace){
+        const newCenter = { lat: selectedPlace.lat, lng: selectedPlace.lng };
+        mapRef.current.panTo(newCenter);
+        mapRef.current.setZoom(15);
+      }
   }, [selectedPlace]);
 
   return (
-      <LoadScript googleMapsApiKey={process.env.REACT_APP_GOOGLE_MAPS_API_KEY} libraries={['places']}>
-        <GoogleMap
-            mapContainerStyle={containerStyle}
-            center={selectedPlace ? { lat: selectedPlace.lat, lng: selectedPlace.lng } : defaultCenter}
-            zoom={10}
-            onClick={handleMapClick}
-            onLoad={onLoad}
-        >
-          {selectedPlace && (
-              <Marker position={{ lat: selectedPlace.lat, lng: selectedPlace.lng }} />
+    <LoadScript googleMapsApiKey={process.env.REACT_APP_GOOGLE_MAPS_API_KEY} libraries={['places']}>
+      <GoogleMap
+        mapContainerStyle={containerStyle}
+        center={selectedPlace ? {lat: selectedPlace.lat, lng: selectedPlace.lng} : center}
+        zoom={14}
+        onClick={handleMapClick}
+        onLoad={onLoad}
+      >
+        {locations.map(({ latitude, longitude, name }, index) => {
+          const lat = parseFloat(latitude);
+          const lng = parseFloat(longitude);
+          
+          // Only render marker if coordinates are valid numbers
+          return !isNaN(lat) && !isNaN(lng) ? (
+            <Marker
+              key={index}
+              position={{ lat, lng }}
+              title={name}
+            />
+          ) : null;
+        })}
+        {selectedPlace && (
+              <Marker position={{ lat: selectedPlace.lat, lng: selectedPlace.lng }} 
+              icon={"http://maps.google.com/mapfiles/ms/icons/blue.png"}
+              />
           )}
-        </GoogleMap>
-      </LoadScript>
+      </GoogleMap>
+    </LoadScript>
   );
 }
 
