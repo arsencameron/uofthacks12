@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './Review.css';
 
-function Review() {
+function Review({selectedPlace}) {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [name, setName] = useState('');
@@ -20,6 +20,8 @@ function Review() {
     }));
   };
 
+  const location_id = selectedPlace.location_id;
+
   const handleSubmit = async (event) => {
     event.preventDefault();
 
@@ -34,7 +36,7 @@ function Review() {
 
     const reviewData = {
       text: description,
-      location_id: "4778def0-76ec-4c5c-8657-91e5b7659ba7",
+      location_id: location_id,
       user_id: name,
       accessibility_ratings: { ...ratings, overall: averageRating },
       title: title
