@@ -3,7 +3,6 @@ import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
 import './App.css';
 import Home from './pages/Home';
 import Signup from './pages/Signup';
-import Review from './pages/Review';
 import Loading from './components/Loading';
 import logo from './assets/logo.png';
 // import profile from './assets/profile.png';
@@ -39,7 +38,6 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/signup" element={<Signup />} />
-          <Route path="/review" element={<Review />} />
         </Routes>
       </div>
     </Router>
