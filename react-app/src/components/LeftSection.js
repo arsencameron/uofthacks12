@@ -24,7 +24,7 @@ function LeftSection({ activeTab, setActiveTab, handleSearch, handlePrompt, setS
                         Generate ✨
                     </button>
                 </div>
-                {activeTab === 'search' && (
+                {/* {activeTab === 'search' && (
                     <div className="search-filter-container">
                         <SearchBar onSearch={handleSearch} />
                         <div className="filter-bar">
@@ -51,7 +51,8 @@ function LeftSection({ activeTab, setActiveTab, handleSearch, handlePrompt, setS
                             </select>
                         </div>
                     </div>
-                )}
+                )} */}
+                {activeTab === 'search' && <SearchBar onSearch={handleSearch} />}
                 {activeTab === 'generate' && <PromptBar onPrompt={handlePrompt} />}
             </div>
             <GoogleMap selectedPlace={selectedPlace} setSelectedPlace={setSelectedPlace} /> {/* Pass setSelectedPlace */}

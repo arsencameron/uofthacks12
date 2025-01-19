@@ -3,4 +3,27 @@
     height: 100vh;
   }
   
+  .left-section {
+    /* flex: 3;  */
+    width: 70%;
+    background: #F0F8FF; 
+    padding: 20px;
+    height: 100%; /* Ensure the left section takes up the full height */
+    box-sizing: border-box; 
+  }
 
+  .right-section {
+    width: 30%;
+    background: #ffffff;
+    padding: 20px;
+    box-sizing: border-box;
+    overflow: auto; /* Use auto instead of scroll */
+  }
+
+  .review-container {
+    width: 100%;
+    background: #ffffff;
+    padding: 20px;
+    box-sizing: border-box;
+    overflow: auto; /* Use auto instead of scroll */
+  }
