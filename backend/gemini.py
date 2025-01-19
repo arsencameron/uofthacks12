@@ -47,3 +47,33 @@ def get_sorted_locations(prompt_embedding: np.ndarray, summary_embeddings: List[
     # Sort by similarity in descending order
     sorted_locations = sorted(similarities, key=lambda x: x[1], reverse=True)
     return sorted_locations
+
+import ast
+
+def add_tag(review):
+    model = genai.GenerativeModel("gemini-1.5-flash")
+    try:
+        prompt = (
+            f"Check if this review fulfills one or more of the following criteria: "
+            f"wheelchair accessible, stroller friendly, accessible restrooms. "
+            f"Return a list of the criteria that are fulfilled. If none, return an empty list. "
+            f"Here is the review: {review}"
+        )
+        response = model.generate_content(prompt)
+        output = response.text.strip()
+
+        # Attempt to safely convert the output to a Python list
+        try:
+            tags = ast.literal_eval(output)  # Safely parse string representations of Python literals
+            if isinstance(tags, list):
+                return tags
+            else:
+                print("Unexpected output format. Returning an empty list.")
+                return []
+        except (ValueError, SyntaxError):
+            print("Failed to parse response as a list. Returning an empty list.")
+            return []
+
+    except Exception as e:
+        print(f"Error in add_tag: {e}")
+        return []

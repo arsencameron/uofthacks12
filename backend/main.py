@@ -6,7 +6,7 @@ from flask_cors import CORS
 from psycopg2.extras import RealDictCursor
 import json
 from datetime import datetime
-from gemini import get_summary, get_embedding, get_sorted_locations
+from gemini import get_summary, get_embedding, get_sorted_locations, add_tag
 import numpy as np
 
 # Load environment variables from .env
@@ -104,6 +104,23 @@ def query_locations():
         cursor.close()
         conn.close()
 
+@app.route("/locations_coordinate")
+def query_locations_coordinate():
+    conn = get_db_connection()
+    if not conn:
+        abort(500, description="Database connection failed")
+    try:
+        cursor = conn.cursor(cursor_factory=RealDictCursor)
+        cursor.execute("SELECT coordinates[1] as latitude, coordinates[2] as longitude, name FROM locations")
+        locations = cursor.fetchall()
+        return jsonify(locations)
+    except Exception as e:
+        print(f"Error fetching locations: {e}")
+        abort(500, description="Failed to fetch locations")
+    finally:
+        cursor.close()
+        conn.close()
+
 @app.route("/reviews", methods=["POST"])
 def add_review():
     conn = get_db_connection()
@@ -137,6 +154,37 @@ def add_review():
         if result:
             review_id = result['review_id']
             print(f"Review inserted successfully. review_id: {review_id}")
+
+            new_tags = add_tag(review["text"])
+            print(f"Generated tags: {new_tags}")
+
+            # Fetch existing tags for the location
+            cursor.execute(
+                """
+                SELECT tags
+                FROM locations
+                WHERE location_id = %s
+                """,
+                (review["location_id"],)
+            )
+            location_data = cursor.fetchone()
+            existing_tags = location_data["tags"] if location_data and location_data["tags"] is not None else []
+            print(f"Existing tags: {existing_tags}")
+            
+            # Merge new tags with existing ones (avoiding duplicates)
+            updated_tags = list(set(existing_tags + new_tags))
+            print(f"Updated tags: {updated_tags}")
+            
+            # Update the tags in the locations table
+            cursor.execute(
+                """
+                UPDATE locations
+                SET tags = COALESCE(tags, ARRAY[]::TEXT[]) || %s::TEXT[]
+                WHERE location_id = %s
+                """,
+                (updated_tags, review["location_id"])
+            )
+
             cursor.execute("""
             SELECT r.*
             FROM locations l

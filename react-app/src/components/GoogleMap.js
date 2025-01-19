@@ -7,7 +7,7 @@ const containerStyle = {
   borderRadius: '22px',
 };
 
-const defaultCenter = {
+const center = {
   lat: 43.6532,
   lng: -79.3832,
 };
@@ -21,6 +21,7 @@ function MapComponent({selectedPlace, setSelectedPlace}) {
 
   const [locations, setLocations] = useState([]);
 
+  
   const handleMapClick = (event) => {
     const lat = event.latLng.lat();
     const lng = event.latLng.lng();
@@ -51,7 +52,6 @@ function MapComponent({selectedPlace, setSelectedPlace}) {
               'photos',
               'website',
               'types',
-            ],
             ],
           };
 
