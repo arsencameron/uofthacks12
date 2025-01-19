@@ -1,5 +1,5 @@
 .right-section {
-    flex: 1; /* 25% of the page */
+    width: 30%; 
     background: #ffffff; /* White background */
     padding: 20px;
   }

@@ -1,5 +1,6 @@
 .left-section {
-    flex: 3; /* 75% of the page */
+    /* flex: 3;  */
+    width: 70%;
     background: #F0F8FF; 
     padding: 20px;
     height: 100%; /* Ensure the left section takes up the full height */
@@ -18,7 +19,6 @@
   .tabs {
     display: flex;
     justify-content: left;
-    margin-bottom: 0px; /* Add some space between the tabs and the search bar */
   }
   
   .tab {
@@ -43,6 +43,7 @@
   }
   
   .search-bar {
+    padding-top: 0;
     display: flex;
     justify-content: left;
     align-items: center;
@@ -56,7 +57,7 @@
   
   .search-input-container input {
     width: 100%;
-    padding: 10px 40px 10px 10px; /* Add padding to the right for the image */
+    padding: 10px 0px 10px 10px; /* Add padding to the right for the image */
     font-size: 16px;
     border: 1px solid #ccc;
     box-sizing: border-box; /* Include padding in the width calculation */
@@ -67,12 +68,11 @@
   .search-input-container .search-button {
     position: absolute;
     right: 10px;
-    top: 50%;
-    transform: translateY(-50%);
     border: none;
     background: none;
     padding: 0;
     cursor: pointer;
+    transform: translateY(40%)
   }
   
   .search-input-container .search-button img {
@@ -81,6 +81,7 @@
   }
 
   .prompt-bar {
+    padding-top: 0;
     display: flex;
     justify-content: left;
     align-items: center;
@@ -104,13 +105,13 @@
   
   .prompt-input-container .prompt-button {
     position: absolute;
+    justify-content: center;
     right: 10px;
-    top: 50%;
-    transform: translateY(-50%);
     border: none;
     background: none;
     padding: 0;
     cursor: pointer;
+    transform: translateY(40%)
   }
   
   .prompt-input-container .prompt-button img {
