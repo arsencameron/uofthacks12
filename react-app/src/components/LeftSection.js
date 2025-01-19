@@ -9,22 +9,24 @@ function LeftSection({ activeTab, setActiveTab, handleSearch }) {
       <header className="App-header">
         Explore Accessibility
       </header>
-      <div className="tabs">
-        <button
-          className={`tab ${activeTab === 'search' ? 'active' : ''}`}
-          onClick={() => setActiveTab('search')}
-        >
-          Search
-        </button>
-        <button
-          className={`tab ${activeTab === 'generate' ? 'active' : ''}`}
-          onClick={() => setActiveTab('generate')}
-        >
-          Generate
-        </button>
+      <div className="tabs-container">
+        <div className="tabs">
+          <button
+            className={`tab ${activeTab === 'search' ? 'active' : ''}`}
+            onClick={() => setActiveTab('search')}
+          >
+            Search
+          </button>
+          <button
+            className={`tab ${activeTab === 'generate' ? 'active' : ''}`}
+            onClick={() => setActiveTab('generate')}
+          >
+            Generate✨
+          </button>
+        </div>
+        {activeTab === 'search' && <SearchBar onSearch={handleSearch} />}
+        {activeTab === 'generate' && <div>Generate Content Here</div>}
       </div>
-      {activeTab === 'search' && <SearchBar onSearch={handleSearch} />}
-      {activeTab === 'generate' && <div>Generate Content Here</div>}
       <GoogleMap />
     </div>
   );

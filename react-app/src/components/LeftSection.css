@@ -2,12 +2,22 @@
     flex: 3; /* 75% of the page */
     background: #E2E2E2; /* Gray background */
     padding: 20px;
+    height: 100%; /* Ensure the left section takes up the full height */
+    box-sizing: border-box; /* Include padding in the height calculation */
+  }
+  
+  .tabs-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 0px;
+    margin-bottom: 20px;
   }
   
   .tabs {
     display: flex;
-    justify-content: center;
-    margin-top: 20px;
+    justify-content: left;
+    margin-bottom: 0px; /* Add some space between the tabs and the search bar */
   }
   
   .tab {
@@ -28,25 +38,33 @@
   .tab:hover {
     background-color: #005577;
   }
-
-  .google-map-container {
+  
+  .search-bar {
     display: flex;
     justify-content: left;
-    align-items: flex-start;
-    margin-top: 20px;
-    margin-left: 10px;
+    align-items: center;
+    width: 100%;
   }
   
-  .map-wrapper {
-    flex: 1;
-  }
-  
-  .location-info {
-    margin-left: 20px;
+  .search-bar input {
     padding: 10px;
+    font-size: 16px;
     border: 1px solid #ccc;
-    border-radius: 4px;
-    background-color: #fff;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 20px; /* Make the input rounded */
     width: 300px; /* Adjust width as needed */
+  }
+  
+  .search-bar button {
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 20px; /* Make the button rounded */
+    background-color: #00698F;
+    color: white;
+    cursor: pointer;
+    margin-left: 10px; /* Add some space between the input and button */
+  }
+  
+  .search-bar button:hover {
+    background-color: #005577;
   }
