@@ -3,12 +3,4 @@
     height: 100vh;
   }
   
-  .left-section {
-    flex: 3; /* 75% of the page */
-    padding: 20px;
-  }
-  
-  .right-section {
-    flex: 1; /* 25% of the page */
-    padding: 20px;
-  }
+
