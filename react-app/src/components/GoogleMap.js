@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api';
+import RightSection from './RightSection'
 
 const containerStyle = {
-  width: '1270px',
+  width: '99.5%',
   height: '650px'
 };
 
@@ -48,12 +49,7 @@ function MapComponent() {
           </GoogleMap>
         </LoadScript>
       </div>
-      {selectedPlace && (
-        <div className="location-info">
-          <h2>{selectedPlace.name}</h2>
-          <p>{selectedPlace.address}</p>
-        </div>
-      )}
+      <RightSection selectedPlace={selectedPlace} />
     </div>
   );
 }
