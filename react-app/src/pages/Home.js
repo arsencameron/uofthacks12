@@ -9,6 +9,7 @@ function Home() {
     const [selectedPlace, setSelectedPlace] = useState(null); // Centralized state for selected place
     const [activeTab, setActiveTab] = useState('search'); // Manage active tab (search or generate)
     const [showReview, setShowReview] = useState(false);
+    const [sortedLocations, setSortedLocations] = useState([]);
 
     const handleSearch = (searchTerm) => {
         if (!searchTerm) return;
@@ -78,16 +79,13 @@ function Home() {
         });
     };
 
-
-    const handlePrompt = (promptTerm) => {
-        console.log('Prompt Term:', promptTerm);
-        // Add logic for prompt handling if needed
-    };
-
     const handleWriteReviewClick = () => {
         setShowReview(true);
       };
 
+    const handlePrompt = (locations) => {
+        setSortedLocations(locations);
+    };
     return (
         <div className="home-container">
             <LeftSection
@@ -98,7 +96,7 @@ function Home() {
                 setSelectedPlace={setSelectedPlace} // Pass map click handler
                 selectedPlace={selectedPlace}
             />
-            <RightSection selectedPlace={selectedPlace} /> {/* Pass selectedPlace */}
+            <RightSection sortedLocations={sortedLocations} selectedPlace={selectedPlace} /> {/* Pass selectedPlace */}
             {/* {showReview ? (
                 <Review />
             ) : (
