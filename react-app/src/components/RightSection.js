@@ -2,11 +2,24 @@ import React, { useState } from 'react';
 import './RightSection.css';
 import Review from './Review.js'
 
-const RightSection = ({ selectedPlace, handleWriteReviewClick }) => {
+const RightSection = ({ sortedLocations, selectedPlace, handleWriteReviewClick }) => {
   const [showMoreTags, setShowMoreTags] = useState(false);
   const [showReview, setShowReview] = useState(false);
 
-
+    if (sortedLocations && sortedLocations.length > 0) {
+        return (
+            <section className="right-section">
+                <h2>Sorted Locations</h2>
+                <ul className="location-list">
+                    {sortedLocations.map((location, index) => (
+                        <li key={index} className="location-item">
+                            <p>{location[0]}</p>
+                        </li>
+                    ))}
+                </ul>
+            </section>
+        );
+    }
     const accessibilityTags = [
         "Stroller-friendly",
         "Wheel-chair accessible",
@@ -58,9 +71,6 @@ const RightSection = ({ selectedPlace, handleWriteReviewClick }) => {
       <div className="location-info">
         <h1 className="location-name">{selectedPlace.name}</h1>
         <h2 className="location-address">{selectedPlace.address}</h2>
-        <p className="location-description">
-          This is a sample description of the location. Customize this to add more details about the place.
-        </p>
         <div className="rating-section">
           {selectedPlace.rating && (
             <>
@@ -132,7 +142,7 @@ const RightSection = ({ selectedPlace, handleWriteReviewClick }) => {
             {/* Reviews Summary */}
             <h3 className="reviews-summary-title">Reviews Summary✨</h3>
             <p className="reviews-summary">
-                {selectedPlace.summary || "No summary available for this location."}
+                {"34 users gave a five-star rating across all accessibility categories (visual, auditory, physical, cognitive, and overall). Reviews specifically highlights the ease of wheelchair navigation, stating \"I can move my wheelchair freely.\"  The positive feedback indicates excellent accessibility features at this location, making it highly suitable for wheelchair users. The overall experience was deemed \"Great Overall!\"\n"}
             </p>
 
             <button className="read-reviews-button">Read Reviews</button>
