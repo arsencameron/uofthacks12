@@ -30,15 +30,47 @@ function MapComponent({ setSelectedPlace }) {
         radius: 50,
       };
 
-      // Perform nearby search on every click
+      // Perform nearby search
       service.nearbySearch(request, (results, status) => {
         if (status === window.google.maps.places.PlacesServiceStatus.OK && results.length > 0) {
           const place = results[0];
-          setSelectedPlace({
-            lat,
-            lng,
-            name: place.name || 'Selected Location',
-            address: place.vicinity || 'No address available',
+
+          // Fetch more details about the selected place
+          const detailsRequest = {
+            placeId: place.place_id, // Use the Place ID from the result
+            fields: [
+              'name',
+              'formatted_address',
+              'geometry',
+              'rating',
+              'opening_hours',
+              'photos',
+              'website',
+              'types',
+            ], // Specify the fields you want to fetch
+          };
+
+          service.getDetails(detailsRequest, (placeDetails, detailsStatus) => {
+            if (detailsStatus === window.google.maps.places.PlacesServiceStatus.OK) {
+              // Update state with detailed place information
+              setSelectedPlace({
+                lat,
+                lng,
+                name: placeDetails.name,
+                address: placeDetails.formatted_address,
+                rating: placeDetails.rating,
+                website: placeDetails.website,
+                openingHours: placeDetails.opening_hours
+                    ? placeDetails.opening_hours.weekday_text
+                    : 'No opening hours available',
+                types: placeDetails.types.join(', '),
+                photos: placeDetails.photos
+                    ? placeDetails.photos.map((photo) => photo.getUrl())
+                    : [],
+              });
+            } else {
+              console.error('Failed to fetch place details:', detailsStatus);
+            }
           });
         } else {
           // Handle no places found
