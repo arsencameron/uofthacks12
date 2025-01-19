@@ -1,4 +1,3 @@
-// RightSection.js
 import React from 'react';
 
 function RightSection({ selectedPlace }) {
