@@ -5,7 +5,6 @@ function Review() {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [name, setName] = useState('');
-  const [date, setDate] = useState('');
   const [ratings, setRatings] = useState({
     overall: 0,
     visual: 0,
@@ -40,11 +39,23 @@ function Review() {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
+    // Calculate the average rating
+    const categories = ['visual', 'auditory', 'cognitive', 'physical'];
+    const totalRatings = categories.reduce((sum, category) => sum + ratings[category], 0);
+    const averageRating = totalRatings / categories.length;
+
+    // Update the overall rating
+    setRatings((prevRatings) => ({
+      ...prevRatings,
+      overall: averageRating,
+    }));
+
     const reviewData = {
       text: description,
       location_id: "4778def0-76ec-4c5c-8657-91e5b7659ba7", // Replace with actual location ID
-      user_id: "user-id-placeholder", // Replace with actual user ID
-      accessibility_ratings: ratings,
+      user_id: name, // Replace with actual user ID
+      accessibility_ratings: { ...ratings, overall: averageRating },
+      title: title
     };
 
     try {
@@ -73,6 +84,29 @@ function Review() {
 <div>
 <form onSubmit={handleSubmit}>
     <div className="form-group">
+      <label htmlFor="name">Name (Optional):</label>
+      <input
+        type="text"
+        id="name"
+        value={name}
+        onChange={(e) => setName(e.target.value)}
+      />
+    </div>
+        {['visual', 'auditory', 'cognitive', 'physical'].map((category) => (
+              <div key={category} className="form-group">
+                <label>{category.charAt(0).toUpperCase() + category.slice(1)}:</label>
+                {[1, 2, 3, 4, 5].map((star) => (
+                  <span
+                    key={star}
+                    className={`star ${ratings[category] >= star ? 'active' : ''}`}
+                    onClick={() => handleRatingChange(category, star)}
+                  >
+                    {ratings[category] >= star ? '★' : '☆'}
+                  </span>
+                ))}
+        </div>
+      ))}
+    <div className="form-group">
       <label htmlFor="title">Title:</label>
       <input
         type="text"
@@ -82,45 +116,13 @@ function Review() {
       />
     </div>
     <div className="form-group">
-      <label htmlFor="description">Description:</label>
+      <label htmlFor="description">Review:</label>
       <textarea
         id="description"
         value={description}
         onChange={(e) => setDescription(e.target.value)}
       ></textarea>
     </div>
-    <div className="form-group">
-      <label htmlFor="name">Name:</label>
-      <input
-        type="text"
-        id="name"
-        value={name}
-        onChange={(e) => setName(e.target.value)}
-      />
-    </div>
-    <div className="form-group">
-      <label htmlFor="date">Date:</label>
-      <input
-        type="date"
-        id="date"
-        value={date}
-        onChange={(e) => setDate(e.target.value)}
-      />
-    </div>
-    {['visual', 'auditory', 'cognitive', 'physical'].map((category) => (
-      <div key={category} className="form-group">
-        <label>{category.charAt(0).toUpperCase() + category.slice(1)}:</label>
-        {[1, 2, 3, 4, 5].map((star) => (
-          <span
-            key={star}
-            className={`star ${ratings[category] >= star ? 'active' : ''}`}
-            onClick={() => handleRatingChange(category, star)}
-          >
-            {ratings[category] >= star ? '★' : '☆'}
-          </span>
-        ))}
-      </div>
-    ))}
     <button type="submit">Submit Review</button>
   </form>
 </div>

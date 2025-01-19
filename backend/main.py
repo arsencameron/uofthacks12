@@ -120,14 +120,15 @@ def add_review():
             "user_id": data.get("user_id"),
             "accessibility_ratings": data.get("accessibility_ratings"),
             "timestamp": datetime.utcnow(),
+            "title": data.get("title")
         }
         cursor.execute(
             """
-            INSERT INTO reviews (text, location_id, user_id, accessibility_ratings, timestamp)
-            VALUES (%s, %s, %s, %s, %s)
+            INSERT INTO reviews (title, text, location_id, user_id, accessibility_ratings, timestamp)
+            VALUES (%s, %s, %s, %s, %s, %s)
             RETURNING review_id
             """,
-            (review["text"], review["location_id"], review["user_id"], json.dumps(review["accessibility_ratings"]), review["timestamp"]),
+            (review["title"], review["text"], review["location_id"], review["user_id"], json.dumps(review["accessibility_ratings"]), review["timestamp"]),
         )
         print("Success here")
         result = cursor.fetchone()
