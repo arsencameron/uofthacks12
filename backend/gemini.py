@@ -55,7 +55,9 @@ def add_tag(review):
     try:
         prompt = (
             f"Check if this review fulfills one or more of the following criteria: "
-            f"wheelchair accessible, stroller friendly, accessible restrooms. "
+            f"wheelchair accessible, stroller friendly, accessible restrooms, level access,"
+            f"Blind-frieldly, Deaf-friendly, Acoustics, Quiet Spaces, Clear Signnage, Sensory-friendly,"
+            f"Language Accessibility, Speech-Friendly, Allergy-Friendly, Dietary Restrictions, Service Animal Friendly"
             f"Return a list of the criteria that are fulfilled. If none, return an empty list. "
             f"Here is the review: {review}"
         )
