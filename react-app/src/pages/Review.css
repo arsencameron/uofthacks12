@@ -65,3 +65,40 @@
   button:hover {
     background-color: #005577;
   }
+  form{
+    padding-top:5%;
+  }
+  .rating {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start; /* Align label and stars to the left */
+    gap: 10px; /* Add consistent spacing between the label and stars */
+  }
+  
+  .rating-label {
+    flex-shrink: 0; /* Prevent label from resizing */
+    text-align: left;
+    min-width: 120px; /* Set consistent width for labels */
+    margin: 0; /* Remove unnecessary margins */
+    padding: 0; /* Remove unnecessary padding */
+  }
+  
+  .stars {
+    display: inline-flex; /* Ensure stars remain inline */
+    margin: 0; /* Remove any additional margin */
+    padding: 0; /* Remove any additional padding */
+  }
+  
+  .star {
+    font-size: 24px;
+    cursor: pointer;
+    color: #ccc;
+    transition: color 0.2s ease;
+  }
+  
+  .star.active {
+    color: gold;
+  }
+  
+  
+  
