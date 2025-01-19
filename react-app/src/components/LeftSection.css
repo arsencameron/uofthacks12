@@ -12,8 +12,8 @@
     flex-direction: column;
     align-items: flex-start;
     margin-top: 0px;
-    margin-left: 10px;
-    margin-bottom: 20px;
+    margin-left: 0px;
+    margin-bottom: 10px;
   }
   
   .tabs {
@@ -63,6 +63,8 @@
     box-sizing: border-box; /* Include padding in the width calculation */
     border-bottom-left-radius: 20px;
     border-bottom-right-radius: 20px;
+    border-top-right-radius: 20px;
+    font-size: 14px;
   }
   
   .search-input-container .search-button {
@@ -92,15 +94,23 @@
     position: relative;
     width: 600px; /* Adjust width as needed */
   }
-  
+  .custom-input::placeholder {
+    margin-left: 10px; /* Add the left margin */
+    color: #888; /* Optional: Change placeholder text color */
+    font-style: italic; /* Optional: Add more styles */
+  }
+  .custom-input {
+    padding-left: 20px;
+  }
   .prompt-input-container input {
     width: 100%;
     padding: 10px 40px 10px 10px; /* Add padding to the right for the image */
-    font-size: 16px;
     border: 1px solid #ccc;
     box-sizing: border-box; /* Include padding in the width calculation */
     border-bottom-left-radius: 20px;
     border-bottom-right-radius: 20px;
+    border-top-right-radius: 20px;
+    font-size: 14px;
   }
   
   .prompt-input-container .prompt-button {

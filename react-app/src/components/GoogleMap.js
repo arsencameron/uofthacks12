@@ -3,7 +3,8 @@ import { GoogleMap, LoadScript } from '@react-google-maps/api';
 
 const containerStyle = {
   width: '99.5%',
-  height: '650px',
+  height: '490px',
+  borderRadius: '22px',
 };
 
 const center = {

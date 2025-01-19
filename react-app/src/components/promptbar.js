@@ -18,7 +18,8 @@ function PromptBar({ onPrompt }) {
       <div className="prompt-input-container">
         <input
           type="text"
-          placeholder="Ask anything..."
+          className="custom-input"
+          placeholder="Generate places (e.g I am in a wheelchair, find me suitable locations...)"
           value={promptTerm}
           onChange={handlePromptChange}
         />

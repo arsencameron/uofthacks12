@@ -18,7 +18,8 @@ function SearchBar({ onSearch }) {
       <div className="search-input-container">
         <input
           type="text"
-          placeholder="Search..."
+          className="custom-input"
+          placeholder="Search accessibility (e.g Robarts Library...)"
           value={searchTerm}
           onChange={handleSearchChange}
         />
