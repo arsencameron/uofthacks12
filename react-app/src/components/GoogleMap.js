@@ -42,7 +42,6 @@ function MapComponent({selectedPlace, setSelectedPlace}) {
           // Fetch more details about the selected place
           const detailsRequest = {
             placeId: place.place_id,
-            placeId: place.place_id,
             fields: [
               'name',
               'formatted_address',

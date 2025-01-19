@@ -129,10 +129,12 @@ const RightSection = ({ selectedPlace, handleWriteReviewClick }) => {
             </div>
 
             {/* Reviews Summary */}
+            {/* Reviews Summary */}
             <h3 className="reviews-summary-title">Reviews Summary✨</h3>
             <p className="reviews-summary">
-                This is a summary of the reviews. It provides an overview of what people think about the location.
+                {selectedPlace.summary || "No summary available for this location."}
             </p>
+
             <button className="read-reviews-button">Read Reviews</button>
         </section>
     );
