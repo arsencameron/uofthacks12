@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './Review.css';
 
-function Review({selectedPlace}) {
+function Review() {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [name, setName] = useState('');
@@ -20,8 +20,26 @@ function Review({selectedPlace}) {
     }));
   };
 
-  const location_id = selectedPlace.location_id;
-
+  const locationIds = [
+    "36b6402f-c759-4983-85e4-d7426395e01",
+    "4778def0-76ec-4c5c-8657-91e5b7659ba7",
+    "63572303-70d8-4364-af04-c011c96f17f6",
+    "a7e487c4-0ab2-4e66-b6e5-ec8f77d08de2",
+    "ce88dc21-891f-4833-977f-2890d6c2c45d",
+    "d5def3f8-0751-438b-bd1b-01bc07a661a1",
+    "daccd144-abbd-4f99-a46b-973857187b2",
+    "dbeb8999-54d4-420f-820d-82787c5e7260",
+    "ee96134a-7698-48ab-b872-8e2c1c138f5c",
+    "f12608ac-47b7-4dc2-9559-9854389d26e9"
+  ];
+  
+  // Function to get a random ID
+  const getRandomLocationId = () => {
+    const randomIndex = Math.floor(Math.random() * locationIds.length);
+    return locationIds[randomIndex];
+  };
+  
+  
   const handleSubmit = async (event) => {
     event.preventDefault();
 
@@ -36,7 +54,7 @@ function Review({selectedPlace}) {
 
     const reviewData = {
       text: description,
-      location_id: location_id,
+      location_id: getRandomLocationId(),
       user_id: name,
       accessibility_ratings: { ...ratings, overall: averageRating },
       title: title
