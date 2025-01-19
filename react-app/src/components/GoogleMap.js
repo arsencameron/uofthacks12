@@ -1,5 +1,5 @@
-import React, { useRef } from 'react';
-import { GoogleMap, LoadScript } from '@react-google-maps/api';
+import React, { useRef, useEffect } from 'react';
+import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api';
 
 const containerStyle = {
   width: '99.5%',
@@ -7,16 +7,16 @@ const containerStyle = {
   borderRadius: '22px',
 };
 
-const center = {
+const defaultCenter = {
   lat: 43.6532,
   lng: -79.3832,
 };
 
-function MapComponent({ setSelectedPlace }) {
-  const mapRef = useRef(null); // Reference to store the map instance
+function MapComponent({ selectedPlace, setSelectedPlace }) {
+  const mapRef = useRef(null);
 
   const onLoad = (map) => {
-    mapRef.current = map; // Save the map instance
+    mapRef.current = map;
   };
 
   const handleMapClick = (event) => {
@@ -38,7 +38,7 @@ function MapComponent({ setSelectedPlace }) {
 
           // Fetch more details about the selected place
           const detailsRequest = {
-            placeId: place.place_id, // Use the Place ID from the result
+            placeId: place.place_id,
             fields: [
               'name',
               'formatted_address',
@@ -48,12 +48,11 @@ function MapComponent({ setSelectedPlace }) {
               'photos',
               'website',
               'types',
-            ], // Specify the fields you want to fetch
+            ],
           };
 
           service.getDetails(detailsRequest, (placeDetails, detailsStatus) => {
             if (detailsStatus === window.google.maps.places.PlacesServiceStatus.OK) {
-              // Update state with detailed place information
               setSelectedPlace({
                 lat,
                 lng,
@@ -73,28 +72,32 @@ function MapComponent({ setSelectedPlace }) {
               console.error('Failed to fetch place details:', detailsStatus);
             }
           });
-        } else {
-          // Handle no places found
-          setSelectedPlace({
-            lat,
-            lng,
-            name: 'No places found',
-            address: 'No address available',
-          });
         }
       });
     }
   };
 
+  useEffect(() => {
+    if (mapRef.current && selectedPlace) {
+      const newCenter = { lat: selectedPlace.lat, lng: selectedPlace.lng };
+      mapRef.current.panTo(newCenter);
+      mapRef.current.setZoom(15);
+    }
+  }, [selectedPlace]);
+
   return (
       <LoadScript googleMapsApiKey={process.env.REACT_APP_GOOGLE_MAPS_API_KEY} libraries={['places']}>
         <GoogleMap
             mapContainerStyle={containerStyle}
-            center={center}
+            center={selectedPlace ? { lat: selectedPlace.lat, lng: selectedPlace.lng } : defaultCenter}
             zoom={10}
             onClick={handleMapClick}
-            onLoad={onLoad} // Capture map instance
-        />
+            onLoad={onLoad}
+        >
+          {selectedPlace && (
+              <Marker position={{ lat: selectedPlace.lat, lng: selectedPlace.lng }} />
+          )}
+        </GoogleMap>
       </LoadScript>
   );
 }

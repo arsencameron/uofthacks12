@@ -1,5 +1,22 @@
 .right-section {
-    width: 30%; 
-    background: #ffffff; /* White background */
+    width: 30%;
+    background: #ffffff;
     padding: 20px;
-  }
+    box-sizing: border-box;
+}
+
+.right-section .location-image {
+    width: 100%;
+    height: auto;
+    margin-bottom: 15px;
+    border-radius: 10px;
+}
+
+.right-section .location-info h1,
+.right-section .location-info h2 {
+    margin: 5px 0;
+}
+
+.right-section ul {
+    padding-left: 20px;
+}

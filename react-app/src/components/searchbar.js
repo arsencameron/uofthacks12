@@ -9,8 +9,9 @@ function SearchBar({ onSearch }) {
   };
 
   const handleSearchSubmit = (event) => {
+    console.log("I searched")
     event.preventDefault();
-    onSearch(searchTerm);
+    onSearch(searchTerm); // Triggers `handleSearch` in Home.js
   };
 
   return (
