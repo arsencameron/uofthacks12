@@ -1,6 +1,6 @@
 .left-section {
     flex: 3; /* 75% of the page */
-    background: #E2E2E2; /* Gray background */
+    background: #F0F8FF; 
     padding: 20px;
     height: 100%; /* Ensure the left section takes up the full height */
     box-sizing: border-box; 
@@ -25,8 +25,8 @@
     padding: 10px 20px;
     font-size: 16px;
     border: none;
-    background-color: #ccc;
-    color: white;
+    background-color: #edecec;
+    color: rgb(0, 0, 0);
     cursor: pointer;
     margin: 0;
     border-radius: 0;
@@ -35,7 +35,7 @@
   }
   
   .tab.active {
-    background-color: #00698F;
+    background-color: #4b9bb8;
   }
   
   .tab:hover {
