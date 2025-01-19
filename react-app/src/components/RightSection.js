@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import './RightSection.css';
+import sampleImage from '../assets/university-of-toronto-mississauga_hero.png'; // Import the image
 
 const RightSection = () => {
   const [showMoreTags, setShowMoreTags] = useState(false);
@@ -14,18 +15,27 @@ const RightSection = () => {
     "Braille signage"
   ];
 
-  console.log('accessibilityTags:', accessibilityTags);
+  const Star = ({ filled }) => (
+    <svg className={`star ${filled ? 'filled' : ''}`} viewBox="0 0 24 24" aria-hidden="true">
+      <polygon
+        points="12 2 15 10 24 10 18 15 20 24 12 19 4 24 6 15 0 10 9 10"
+        stroke="black"
+        fill={filled ? "yellow" : "none"}
+        strokeWidth="1"
+      />
+    </svg>
+  );
 
   return (
     <section className="right-section">
-      <img src="https://via.placeholder.com/150" alt="Location" className="location-image" />
+      <img src={sampleImage} alt="Location" className="location-image" /> {/* Use the imported image */}
       <div className="location-info">
         <h1 className="location-name">Sample Location</h1>
         <h2 className="location-address">123 Sample Street</h2>
         <p className="location-description">This is a sample description of the location. It provides detailed information about the location's features and amenities.</p>
         <div className="rating-section">
           <span className="overall-rating">4.5</span>
-          <span className="star">&#9733;</span>
+          <Star filled={true} />
           <p className="number-of-reviews">100 reviews</p>
         </div>
         <button className="write-review-button">Write a Review</button>
@@ -47,7 +57,7 @@ const RightSection = () => {
           <span className="rating-value">4</span>
           <div className="stars">
             {[...Array(5)].map((_, i) => (
-              <span key={i} className={`star ${i < 4 ? 'filled' : ''}`}>&#9733;</span>
+              <Star key={i} filled={i < 4} />
             ))}
           </div>
         </div>
@@ -56,7 +66,7 @@ const RightSection = () => {
           <span className="rating-value">3</span>
           <div className="stars">
             {[...Array(5)].map((_, i) => (
-              <span key={i} className={`star ${i < 3 ? 'filled' : ''}`}>&#9733;</span>
+              <Star key={i} filled={i < 3} />
             ))}
           </div>
         </div>
@@ -65,7 +75,7 @@ const RightSection = () => {
           <span className="rating-value">5</span>
           <div className="stars">
             {[...Array(5)].map((_, i) => (
-              <span key={i} className={`star ${i < 5 ? 'filled' : ''}`}>&#9733;</span>
+              <Star key={i} filled={i < 5} />
             ))}
           </div>
         </div>
@@ -74,7 +84,7 @@ const RightSection = () => {
           <span className="rating-value">2</span>
           <div className="stars">
             {[...Array(5)].map((_, i) => (
-              <span key={i} className={`star ${i < 2 ? 'filled' : ''}`}>&#9733;</span>
+              <Star key={i} filled={i < 2} />
             ))}
           </div>
         </div>

@@ -2,11 +2,10 @@
   width: 30%;
   background-color: white;
   padding: 20px;
-}
+}np
 
 .location-image {
-  width: 200px;
-  height: 100px;
+  width: 90%;
   border-radius: 10px;
   margin-bottom: 20px;
 }
@@ -17,7 +16,7 @@
 
 .location-name {
   font-family: 'Inter', sans-serif;
-  font-size: 48px;
+  font-size: 35px;
   font-weight: normal;
   color: black;
 }
@@ -51,10 +50,10 @@
 }
 
 .star {
-  font-size: 40px;
-  color: yellow;
-  border: 3.5px solid black;
+  width: 40px;
+  height: 40px;
   margin-right: 20px;
+  pointer-events: none; /* Ensure the stars are not clickable */
 }
 
 .number-of-reviews {
@@ -136,15 +135,6 @@
 
 .stars {
   display: flex;
-}
-
-.stars .star {
-  font-size: 20px;
-  color: #ccc;
-}
-
-.stars .star.filled {
-  color: yellow;
 }
 
 .reviews-summary-title {
