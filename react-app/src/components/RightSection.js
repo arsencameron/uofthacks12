@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import './RightSection.css';
+import Review from './Review.js'
 
 const RightSection = ({ selectedPlace }) => {
     const [showMoreTags, setShowMoreTags] = useState(false);
@@ -33,6 +34,13 @@ const RightSection = ({ selectedPlace }) => {
         );
     }
 
+    if (showReview) {
+        return (
+            <section className="right-section">
+                <Review />
+            </section>
+        );
+    }
     return (
         <section className="right-section">
             {/* Location Image */}
@@ -60,7 +68,7 @@ const RightSection = ({ selectedPlace }) => {
                         </>
                     )}
                 </div>
-                <button className="write-review-button">Write a Review</button>
+                <button className="write-review-button" onClick={() => setShowReview(true)}>Write a Review</button>
             </div>
 
             {/* Accessibility Tags */}
