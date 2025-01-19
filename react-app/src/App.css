@@ -14,14 +14,14 @@ html, body {
 
 .nav-logo {
   position: absolute;
-  top: 10px;
+  top: 30px;
   left: 30px;
   width: 225px;
   height: 75px;
 }
 
 .App-header {
-  margin-top: 50px; 
+  margin-top: 90px; 
   color: #006BC3;
   font-size: 50px;
   margin-left: 10px;
