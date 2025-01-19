@@ -36,15 +36,6 @@ function App() {
         <Link to="/">
           <img src={logo} alt="Home" className="nav-logo" />
         </Link>
-        <nav>
-          <ul>
-            <li>
-              <Link to="/signup">
-                {/* <img src={profile} alt="Signup" className="profile" /> */}
-              </Link>
-            </li>
-          </ul>
-        </nav>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/signup" element={<Signup />} />
